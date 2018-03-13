@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "consultant",
+            "otherEntityName": "consultant",
+            "otherEntityRelationshipName": "placement"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "bizDev",
+            "otherEntityName": "bizDev",
+            "otherEntityRelationshipName": "placement"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nomClientFinal",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nomSSII",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180313231338",
+    "entityTableName": "placement",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

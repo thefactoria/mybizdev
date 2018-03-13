@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span>Etats</span>
+        <button class="btn btn-primary float-right jh-create-entity create-etat" [routerLink]="['/', { outlets: { popup: ['etat-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Etat
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="etats">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Date Demarrage</span></th>
+            <th><span>Date Debut Interco</span></th>
+            <th><span>Libelle Statut</span></th>
+            <th><span>Placement</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let etat of etats ;trackBy: trackId">
+                <td><a [routerLink]="['../etat', etat.id ]">{{etat.id}}</a></td>
+                <td>{{etat.dateDemarrage | date:'medium'}}</td>
+                <td>{{etat.dateDebutInterco | date:'medium'}}</td>
+                <td>{{etat.libelleStatut}}</td>
+                <td>
+                    <div *ngIf="etat.placement">
+                        <a [routerLink]="['../placement', etat.placement?.id ]" >{{etat.placement?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../etat', etat.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'etat/'+ etat.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'etat/'+ etat.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

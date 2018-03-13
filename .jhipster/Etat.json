@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "placement",
+            "otherEntityName": "placement",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "etat"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dateDemarrage",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dateDebutInterco",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "libelleStatut",
+            "fieldType": "Statut",
+            "fieldValues": "GO,NOGO,STANDBY,INPROGRESS"
+        }
+    ],
+    "changelogDate": "20180313231339",
+    "entityTableName": "etat",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
