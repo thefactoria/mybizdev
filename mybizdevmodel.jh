@@ -1,0 +1,67 @@
+entity Consultant {
+	nom String required,
+    prenom String required,
+    cjm Integer required,
+    tjMin Integer required,
+    tjmFinal Integer,
+    dateDebutInterco ZonedDateTime required,
+    
+}
+
+entity Placement {
+	
+	nomClientFinal String required,
+    nomSSII String,
+    contactSSII String,
+    contactClient String,
+    dateDemarrage ZonedDateTime,
+    etat Statut
+    
+}
+
+entity BizDev {
+	surnom String required
+}
+
+entity Equipe {
+	nom String required,
+}
+
+enum Statut {
+    GO, NOGO, STANDBY, INPROGRESS
+}
+
+
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	
+	Equipe{bizDev} to
+	/**
+	* Another side of the same relationship
+	*/
+	BizDev{equipe}
+    
+    
+    Consultant{placement} to
+	/**
+	* Another side of the same relationship
+	*/
+	Placement{consultant}
+    
+    BizDev{bizDevPlacement} to
+	/**
+	* Another side of the same relationship
+	*/
+	Placement
+}
+
+
+// Set pagination options
+paginate Placement with infinite-scroll
+paginate Consultant with pagination
+
+
+// Set service options to all except few
+service all with serviceImpl except Equipe, BizDev
+
