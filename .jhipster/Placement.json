@@ -1,0 +1,54 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "javadoc": "Another side of the same relationship",
+            "relationshipName": "consultant",
+            "otherEntityName": "consultant",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "bizDev",
+            "otherEntityName": "bizDev",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nomClientFinal",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nomSSII",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contactSSII",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contactClient",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateDemarrage",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "Statut",
+            "fieldValues": "GO,NOGO,STANDBY,INPROGRESS"
+        }
+    ],
+    "changelogDate": "20180314094342",
+    "entityTableName": "placement",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

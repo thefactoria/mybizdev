@@ -1,0 +1,81 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPlacementLabel">Create or edit a Placement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!placement.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="placement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nomClientFinal">Nom Client Final</label>
+            <input type="text" class="form-control" name="nomClientFinal" id="field_nomClientFinal"
+                [(ngModel)]="placement.nomClientFinal" required/>
+            <div [hidden]="!(editForm.controls.nomClientFinal?.dirty && editForm.controls.nomClientFinal?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nomClientFinal?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nomSSII">Nom SSII</label>
+            <input type="text" class="form-control" name="nomSSII" id="field_nomSSII"
+                [(ngModel)]="placement.nomSSII" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_contactSSII">Contact SSII</label>
+            <input type="text" class="form-control" name="contactSSII" id="field_contactSSII"
+                [(ngModel)]="placement.contactSSII" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_contactClient">Contact Client</label>
+            <input type="text" class="form-control" name="contactClient" id="field_contactClient"
+                [(ngModel)]="placement.contactClient" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dateDemarrage">Date Demarrage</label>
+            <div class="d-flex">
+                <input id="field_dateDemarrage" type="datetime-local" class="form-control" name="dateDemarrage" [(ngModel)]="placement.dateDemarrage"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_etat">Etat</label>
+            <select class="form-control" name="etat" [(ngModel)]="placement.etat" id="field_etat" >
+                <option value="GO">GO</option>
+                <option value="NOGO">NOGO</option>
+                <option value="STANDBY">STANDBY</option>
+                <option value="INPROGRESS">INPROGRESS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_consultant">Consultant</label>
+            <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bizDev">Biz Dev</label>
+            <select class="form-control" id="field_bizDev" name="bizDev" [(ngModel)]="placement.bizDev" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="bizDevOption.id === placement.bizDev?.id ? placement.bizDev : bizDevOption" *ngFor="let bizDevOption of bizdevs; trackBy: trackBizDevById">{{bizDevOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

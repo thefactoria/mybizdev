@@ -1,0 +1,46 @@
+
+<div *ngIf="consultant">
+    <h2><span>Consultant</span> {{consultant.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Nom</span></dt>
+        <dd>
+            <span>{{consultant.nom}}</span>
+        </dd>
+        <dt><span>Prenom</span></dt>
+        <dd>
+            <span>{{consultant.prenom}}</span>
+        </dd>
+        <dt><span>Cjm</span></dt>
+        <dd>
+            <span>{{consultant.cjm}}</span>
+        </dd>
+        <dt><span>Tj Min</span></dt>
+        <dd>
+            <span>{{consultant.tjMin}}</span>
+        </dd>
+        <dt><span>Tjm Final</span></dt>
+        <dd>
+            <span>{{consultant.tjmFinal}}</span>
+        </dd>
+        <dt><span>Date Debut Interco</span></dt>
+        <dd>
+            <span>{{consultant.dateDebutInterco | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'consultant/'+ consultant.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
