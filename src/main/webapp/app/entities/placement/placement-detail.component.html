@@ -1,0 +1,48 @@
+
+<div *ngIf="placement">
+    <h2><span>Placement</span> {{placement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Nom Client Final</span></dt>
+        <dd>
+            <span>{{placement.nomClientFinal}}</span>
+        </dd>
+        <dt><span>Nom SSII</span></dt>
+        <dd>
+            <span>{{placement.nomSSII}}</span>
+        </dd>
+        <dt><span>Contact SSII</span></dt>
+        <dd>
+            <span>{{placement.contactSSII}}</span>
+        </dd>
+        <dt><span>Contact Client</span></dt>
+        <dd>
+            <span>{{placement.contactClient}}</span>
+        </dd>
+        <dt><span>Etat</span></dt>
+        <dd>
+            <span>{{placement.etat}}</span>
+        </dd>
+        <dt><span>Biz Dev</span></dt>
+        <dd>
+            <div *ngIf="placement.bizDev">
+                <a [routerLink]="['/biz-dev', placement.bizDev?.id]">{{placement.bizDev?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'placement/'+ placement.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

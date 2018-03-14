@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span>Consultants</span>
+        <button class="btn btn-primary float-right jh-create-entity create-consultant" [routerLink]="['/', { outlets: { popup: ['consultant-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Consultant
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="consultants">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nom"><span>Nom</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="prenom"><span>Prenom</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cjm"><span>Cjm</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tjMin"><span>Tj Min</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tjMFinal"><span>Tj M Final</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDebutInterco"><span>Date Debut Interco</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDemarrage"><span>Date Demarrage</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="placement.id"><span>Placement</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let consultant of consultants ;trackBy: trackId">
+                <td><a [routerLink]="['../consultant', consultant.id ]">{{consultant.id}}</a></td>
+                <td>{{consultant.nom}}</td>
+                <td>{{consultant.prenom}}</td>
+                <td>{{consultant.cjm}}</td>
+                <td>{{consultant.tjMin}}</td>
+                <td>{{consultant.tjMFinal}}</td>
+                <td>{{consultant.dateDebutInterco | date:'medium'}}</td>
+                <td>{{consultant.dateDemarrage | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="consultant.placement">
+                        <a [routerLink]="['../placement', consultant.placement?.id ]" >{{consultant.placement?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../consultant', consultant.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'consultant/'+ consultant.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'consultant/'+ consultant.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="consultants && consultants.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

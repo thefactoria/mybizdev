@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "bizDevPlacement",
+            "otherEntityName": "placement",
+            "otherEntityRelationshipName": "bizDev"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "javadoc": "Another side of the same relationship",
+            "relationshipName": "equipe",
+            "otherEntityName": "equipe",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "surnom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180314085454",
+    "entityTableName": "biz_dev",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
