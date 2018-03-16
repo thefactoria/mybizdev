@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span>Placements</span>
+        <button class="btn btn-primary float-right jh-create-entity create-placement" [routerLink]="['/', { outlets: { popup: ['placement-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Placement
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="placements">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="nomClientFinal"><span>Nom Client Final</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nomSSII"><span>Nom SSII</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="contactSSII"><span>Contact SSII</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="contactClient"><span>Contact Client</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDemarrage"><span>Date Demarrage</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="etat"><span>Etat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="consultant.id"><span>Consultant</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bizDev.id"><span>Biz Dev</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let placement of placements ;trackBy: trackId">
+                <td>{{placement.nomClientFinal}}</td>
+                <td>{{placement.nomSSII}}</td>
+                <td>{{placement.contactSSII}}</td>
+                <td>{{placement.contactClient}}</td>
+                <td>{{placement.dateDemarrage | date:'medium'}}</td>
+                <td>{{placement.etat}}</td>
+                <td>
+                    <div *ngIf="placement.consultant">
+                        <a [routerLink]="['../consultant', placement.consultant?.id ]" >{{placement.consultant?.nom}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="placement.bizDev">
+                        <a [routerLink]="['../biz-dev', placement.bizDev?.id ]" >{{placement.bizDev?.surnom}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../placement', placement.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'placement/'+ placement.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'placement/'+ placement.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+version: '2'
+services:
+    mybizdev-app:
+        image: mybizdev
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://mybizdev-postgresql:5432/mybizdev
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    mybizdev-postgresql:
+        extends:
+            file: postgresql.yml
+            service: mybizdev-postgresql
