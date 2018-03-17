@@ -64,7 +64,7 @@ export class ConsultantService {
     private convertItemFromServer(consultant: Consultant): Consultant {
         const copy: Consultant = Object.assign({}, consultant);
         copy.dateDebutInterco = this.dateUtils
-            .convertDateTimeFromServer(consultant.dateDebutInterco);
+            .convertLocalDateFromServer(consultant.dateDebutInterco);
         return copy;
     }
 
@@ -73,8 +73,8 @@ export class ConsultantService {
      */
     private convert(consultant: Consultant): Consultant {
         const copy: Consultant = Object.assign({}, consultant);
-
-        copy.dateDebutInterco = this.dateUtils.toDate(consultant.dateDebutInterco);
+        copy.dateDebutInterco = this.dateUtils
+            .convertLocalDateToServer(consultant.dateDebutInterco);
         return copy;
     }
 }

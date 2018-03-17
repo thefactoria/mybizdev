@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -46,7 +46,7 @@ public class Consultant implements Serializable {
 
     @NotNull
     @Column(name = "date_debut_interco", nullable = false)
-    private ZonedDateTime dateDebutInterco;
+    private LocalDate dateDebutInterco;
 
     @OneToMany(mappedBy = "consultant")
     @JsonIgnore
@@ -126,16 +126,16 @@ public class Consultant implements Serializable {
         this.tjmFinal = tjmFinal;
     }
 
-    public ZonedDateTime getDateDebutInterco() {
+    public LocalDate getDateDebutInterco() {
         return dateDebutInterco;
     }
 
-    public Consultant dateDebutInterco(ZonedDateTime dateDebutInterco) {
+    public Consultant dateDebutInterco(LocalDate dateDebutInterco) {
         this.dateDebutInterco = dateDebutInterco;
         return this;
     }
 
-    public void setDateDebutInterco(ZonedDateTime dateDebutInterco) {
+    public void setDateDebutInterco(LocalDate dateDebutInterco) {
         this.dateDebutInterco = dateDebutInterco;
     }
 
