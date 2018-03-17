@@ -22,13 +22,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static fr.adservio.mybizdev.web.rest.TestUtil.sameInstant;
 import static fr.adservio.mybizdev.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -57,8 +54,11 @@ public class PlacementResourceIntTest {
     private static final String DEFAULT_CONTACT_CLIENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT_CLIENT = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_DATE_DEMARRAGE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_DATE_DEMARRAGE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final LocalDate DEFAULT_DATE_DEMARRAGE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE_DEMARRAGE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_COMMENTAIRES = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENTAIRES = "BBBBBBBBBB";
 
     private static final Statut DEFAULT_ETAT = Statut.GO;
     private static final Statut UPDATED_ETAT = Statut.NOGO;
@@ -109,6 +109,7 @@ public class PlacementResourceIntTest {
             .contactSSII(DEFAULT_CONTACT_SSII)
             .contactClient(DEFAULT_CONTACT_CLIENT)
             .dateDemarrage(DEFAULT_DATE_DEMARRAGE)
+            .commentaires(DEFAULT_COMMENTAIRES)
             .etat(DEFAULT_ETAT);
         return placement;
     }
@@ -138,6 +139,7 @@ public class PlacementResourceIntTest {
         assertThat(testPlacement.getContactSSII()).isEqualTo(DEFAULT_CONTACT_SSII);
         assertThat(testPlacement.getContactClient()).isEqualTo(DEFAULT_CONTACT_CLIENT);
         assertThat(testPlacement.getDateDemarrage()).isEqualTo(DEFAULT_DATE_DEMARRAGE);
+        assertThat(testPlacement.getCommentaires()).isEqualTo(DEFAULT_COMMENTAIRES);
         assertThat(testPlacement.getEtat()).isEqualTo(DEFAULT_ETAT);
     }
 
@@ -193,7 +195,8 @@ public class PlacementResourceIntTest {
             .andExpect(jsonPath("$.[*].nomSSII").value(hasItem(DEFAULT_NOM_SSII.toString())))
             .andExpect(jsonPath("$.[*].contactSSII").value(hasItem(DEFAULT_CONTACT_SSII.toString())))
             .andExpect(jsonPath("$.[*].contactClient").value(hasItem(DEFAULT_CONTACT_CLIENT.toString())))
-            .andExpect(jsonPath("$.[*].dateDemarrage").value(hasItem(sameInstant(DEFAULT_DATE_DEMARRAGE))))
+            .andExpect(jsonPath("$.[*].dateDemarrage").value(hasItem(DEFAULT_DATE_DEMARRAGE.toString())))
+            .andExpect(jsonPath("$.[*].commentaires").value(hasItem(DEFAULT_COMMENTAIRES.toString())))
             .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())));
     }
 
@@ -212,7 +215,8 @@ public class PlacementResourceIntTest {
             .andExpect(jsonPath("$.nomSSII").value(DEFAULT_NOM_SSII.toString()))
             .andExpect(jsonPath("$.contactSSII").value(DEFAULT_CONTACT_SSII.toString()))
             .andExpect(jsonPath("$.contactClient").value(DEFAULT_CONTACT_CLIENT.toString()))
-            .andExpect(jsonPath("$.dateDemarrage").value(sameInstant(DEFAULT_DATE_DEMARRAGE)))
+            .andExpect(jsonPath("$.dateDemarrage").value(DEFAULT_DATE_DEMARRAGE.toString()))
+            .andExpect(jsonPath("$.commentaires").value(DEFAULT_COMMENTAIRES.toString()))
             .andExpect(jsonPath("$.etat").value(DEFAULT_ETAT.toString()));
     }
 
@@ -242,6 +246,7 @@ public class PlacementResourceIntTest {
             .contactSSII(UPDATED_CONTACT_SSII)
             .contactClient(UPDATED_CONTACT_CLIENT)
             .dateDemarrage(UPDATED_DATE_DEMARRAGE)
+            .commentaires(UPDATED_COMMENTAIRES)
             .etat(UPDATED_ETAT);
 
         restPlacementMockMvc.perform(put("/api/placements")
@@ -258,6 +263,7 @@ public class PlacementResourceIntTest {
         assertThat(testPlacement.getContactSSII()).isEqualTo(UPDATED_CONTACT_SSII);
         assertThat(testPlacement.getContactClient()).isEqualTo(UPDATED_CONTACT_CLIENT);
         assertThat(testPlacement.getDateDemarrage()).isEqualTo(UPDATED_DATE_DEMARRAGE);
+        assertThat(testPlacement.getCommentaires()).isEqualTo(UPDATED_COMMENTAIRES);
         assertThat(testPlacement.getEtat()).isEqualTo(UPDATED_ETAT);
     }
 

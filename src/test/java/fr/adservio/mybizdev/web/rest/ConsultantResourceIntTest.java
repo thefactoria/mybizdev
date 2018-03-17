@@ -22,13 +22,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-import static fr.adservio.mybizdev.web.rest.TestUtil.sameInstant;
 import static fr.adservio.mybizdev.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -59,8 +56,8 @@ public class ConsultantResourceIntTest {
     private static final Integer DEFAULT_TJM_FINAL = 1;
     private static final Integer UPDATED_TJM_FINAL = 2;
 
-    private static final ZonedDateTime DEFAULT_DATE_DEBUT_INTERCO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_DATE_DEBUT_INTERCO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final LocalDate DEFAULT_DATE_DEBUT_INTERCO = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE_DEBUT_INTERCO = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private ConsultantRepository consultantRepository;
@@ -265,7 +262,7 @@ public class ConsultantResourceIntTest {
             .andExpect(jsonPath("$.[*].cjm").value(hasItem(DEFAULT_CJM)))
             .andExpect(jsonPath("$.[*].tjMin").value(hasItem(DEFAULT_TJ_MIN)))
             .andExpect(jsonPath("$.[*].tjmFinal").value(hasItem(DEFAULT_TJM_FINAL)))
-            .andExpect(jsonPath("$.[*].dateDebutInterco").value(hasItem(sameInstant(DEFAULT_DATE_DEBUT_INTERCO))));
+            .andExpect(jsonPath("$.[*].dateDebutInterco").value(hasItem(DEFAULT_DATE_DEBUT_INTERCO.toString())));
     }
 
     @Test
@@ -284,7 +281,7 @@ public class ConsultantResourceIntTest {
             .andExpect(jsonPath("$.cjm").value(DEFAULT_CJM))
             .andExpect(jsonPath("$.tjMin").value(DEFAULT_TJ_MIN))
             .andExpect(jsonPath("$.tjmFinal").value(DEFAULT_TJM_FINAL))
-            .andExpect(jsonPath("$.dateDebutInterco").value(sameInstant(DEFAULT_DATE_DEBUT_INTERCO)));
+            .andExpect(jsonPath("$.dateDebutInterco").value(DEFAULT_DATE_DEBUT_INTERCO.toString()));
     }
 
     @Test

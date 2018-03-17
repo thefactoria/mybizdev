@@ -2,7 +2,6 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { Placement } from './placement.model';
 import { PlacementService } from './placement.service';
 
@@ -11,7 +10,6 @@ export class PlacementPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
-        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private placementService: PlacementService
@@ -31,8 +29,13 @@ export class PlacementPopupService {
                 this.placementService.find(id)
                     .subscribe((placementResponse: HttpResponse<Placement>) => {
                         const placement: Placement = placementResponse.body;
-                        placement.dateDemarrage = this.datePipe
-                            .transform(placement.dateDemarrage, 'yyyy-MM-ddTHH:mm:ss');
+                        if (placement.dateDemarrage) {
+                            placement.dateDemarrage = {
+                                year: placement.dateDemarrage.getFullYear(),
+                                month: placement.dateDemarrage.getMonth() + 1,
+                                day: placement.dateDemarrage.getDate()
+                            };
+                        }
                         this.ngbModalRef = this.placementModalRef(component, placement);
                         resolve(this.ngbModalRef);
                     });

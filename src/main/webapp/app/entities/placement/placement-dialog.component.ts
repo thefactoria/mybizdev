@@ -24,6 +24,7 @@ export class PlacementDialogComponent implements OnInit {
     consultants: Consultant[];
 
     bizdevs: BizDev[];
+    dateDemarrageDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

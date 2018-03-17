@@ -15,6 +15,7 @@ export class Placement implements BaseEntity {
         public contactSSII?: string,
         public contactClient?: string,
         public dateDemarrage?: any,
+        public commentaires?: string,
         public etat?: Statut,
         public consultant?: BaseEntity,
         public bizDev?: BaseEntity,
