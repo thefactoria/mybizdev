@@ -41,13 +41,12 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="date_debut_interco" type="timestamp">
+            <column name="date_debut_interco" type="date">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="consultant" columnName="date_debut_interco" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

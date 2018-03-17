@@ -64,7 +64,7 @@ export class PlacementService {
     private convertItemFromServer(placement: Placement): Placement {
         const copy: Placement = Object.assign({}, placement);
         copy.dateDemarrage = this.dateUtils
-            .convertDateTimeFromServer(placement.dateDemarrage);
+            .convertLocalDateFromServer(placement.dateDemarrage);
         return copy;
     }
 
@@ -73,8 +73,8 @@ export class PlacementService {
      */
     private convert(placement: Placement): Placement {
         const copy: Placement = Object.assign({}, placement);
-
-        copy.dateDemarrage = this.dateUtils.toDate(placement.dateDemarrage);
+        copy.dateDemarrage = this.dateUtils
+            .convertLocalDateToServer(placement.dateDemarrage);
         return copy;
     }
 }
