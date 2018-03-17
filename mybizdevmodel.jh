@@ -4,7 +4,7 @@ entity Consultant {
     cjm Integer required,
     tjMin Integer required,
     tjmFinal Integer,
-    dateDebutInterco ZonedDateTime required,
+    dateDebutInterco LocalDate required,
     
 }
 
@@ -14,7 +14,8 @@ entity Placement {
     nomSSII String,
     contactSSII String,
     contactClient String,
-    dateDemarrage ZonedDateTime,
+    dateDemarrage LocalDate,
+    commentaires String,
     etat Statut
     
 }
