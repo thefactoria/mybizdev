@@ -7,11 +7,6 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!placement.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="placement.id" readonly />
-        </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nomClientFinal">Nom Client Final</label>
             <input type="text" class="form-control" name="nomClientFinal" id="field_nomClientFinal"
@@ -50,16 +45,20 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_commentaires">Commentaires</label>
-            <input type="text" class="form-control" name="commentaires" id="field_commentaires"
-                [(ngModel)]="placement.commentaires" />
+            <textarea class="form-control" name="commentaires" id="field_commentaires"
+                [(ngModel)]="placement.commentaires" ></textarea>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_etat">Etat</label>
             <select class="form-control" name="etat" [(ngModel)]="placement.etat" id="field_etat" >
                 <option value="GO">GO</option>
                 <option value="NOGO">NOGO</option>
+                <option value="POSITIONNEMENT">POSITIONNEMENT</option>
+                <option value="ENTRETIENCOMMERCIAL">ENTRETIEN COMMERCIAL</option>
+                <option value="ENTRETIENCLIENT1">ENTRETIEN CLIENT 1</option>
+                <option value="ENTRETIENCLIENT2">ENTRETIEN CLIENT 2</option>
+                <option value="CVENVOYE">CV ENVOYE</option>
                 <option value="STANDBY">STANDBY</option>
-                <option value="INPROGRESS">INPROGRESS</option>
             </select>
         </div>
 

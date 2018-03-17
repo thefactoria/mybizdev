@@ -16,7 +16,6 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="nomClientFinal"><span>Nom Client Final</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="nomSSII"><span>Nom SSII</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="contactSSII"><span>Contact SSII</span> <span class="fa fa-sort"></span></th>
@@ -31,7 +30,6 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let placement of placements ;trackBy: trackId">
-                <td><a [routerLink]="['../placement', placement.id ]">{{placement.id}}</a></td>
                 <td>{{placement.nomClientFinal}}</td>
                 <td>{{placement.nomSSII}}</td>
                 <td>{{placement.contactSSII}}</td>
@@ -41,12 +39,12 @@
                 <td>{{placement.etat}}</td>
                 <td>
                     <div *ngIf="placement.consultant">
-                        <a [routerLink]="['../consultant', placement.consultant?.id ]" >{{placement.consultant?.id}}</a>
+                        <a [routerLink]="['../consultant', placement.consultant?.id ]" >{{placement.consultant?.nom}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="placement.bizDev">
-                        <a [routerLink]="['../biz-dev', placement.bizDev?.id ]" >{{placement.bizDev?.id}}</a>
+                        <a [routerLink]="['../biz-dev', placement.bizDev?.id ]" >{{placement.bizDev?.surnom}}</a>
                     </div>
                 </td>
                 <td class="text-right">

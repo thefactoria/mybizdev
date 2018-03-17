@@ -7,11 +7,6 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!bizDev.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="bizDev.id" readonly />
-        </div>
         <div class="form-group">
             <label class="form-control-label" for="field_surnom">Surnom</label>
             <input type="text" class="form-control" name="surnom" id="field_surnom"
@@ -28,7 +23,7 @@
             <label class="form-control-label" for="field_equipe">Equipe</label>
             <select class="form-control" id="field_equipe" name="equipe" [(ngModel)]="bizDev.equipe" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="equipeOption.id === bizDev.equipe?.id ? bizDev.equipe : equipeOption" *ngFor="let equipeOption of equipes; trackBy: trackEquipeById">{{equipeOption.id}}</option>
+                <option [ngValue]="equipeOption.id === bizDev.equipe?.id ? bizDev.equipe : equipeOption" *ngFor="let equipeOption of equipes; trackBy: trackEquipeById">{{equipeOption.nom}}</option>
             </select>
         </div>
     </div>

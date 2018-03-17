@@ -16,14 +16,12 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>ID</span></th>
             <th><span>Nom</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let equipe of equipes ;trackBy: trackId">
-                <td><a [routerLink]="['../equipe', equipe.id ]">{{equipe.id}}</a></td>
                 <td>{{equipe.nom}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

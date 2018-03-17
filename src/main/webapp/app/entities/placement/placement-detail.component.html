@@ -1,6 +1,5 @@
 
 <div *ngIf="placement">
-    <h2><span>Placement</span> {{placement.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
@@ -35,13 +34,13 @@
         <dt><span>Consultant</span></dt>
         <dd>
             <div *ngIf="placement.consultant">
-                <a [routerLink]="['/consultant', placement.consultant?.id]">{{placement.consultant?.id}}</a>
+                <a [routerLink]="['/consultant', placement.consultant?.id]">{{placement.consultant?.nom}}</a>
             </div>
         </dd>
         <dt><span>Biz Dev</span></dt>
         <dd>
             <div *ngIf="placement.bizDev">
-                <a [routerLink]="['/biz-dev', placement.bizDev?.id]">{{placement.bizDev?.id}}</a>
+                <a [routerLink]="['/biz-dev', placement.bizDev?.id]">{{placement.bizDev?.surnom}}</a>
             </div>
         </dd>
     </dl>

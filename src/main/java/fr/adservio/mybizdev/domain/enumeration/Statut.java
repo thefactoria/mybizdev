@@ -4,5 +4,5 @@ package fr.adservio.mybizdev.domain.enumeration;
  * The Statut enumeration.
  */
 public enum Statut {
-    GO, NOGO, STANDBY, INPROGRESS
+	ENTRETIENCOMMERCIAL, ENTRETIENCLIENT1, ENTRETIENCLIENT2, CVENVOYE, GO, NOGO, STANDBY, POSITIONNEMENT
 }
