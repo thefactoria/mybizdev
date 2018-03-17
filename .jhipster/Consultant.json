@@ -43,7 +43,7 @@
         },
         {
             "fieldName": "dateDebutInterco",
-            "fieldType": "ZonedDateTime",
+            "fieldType": "LocalDate",
             "fieldValidateRules": [
                 "required"
             ]

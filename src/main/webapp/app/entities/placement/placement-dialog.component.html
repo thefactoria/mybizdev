@@ -40,10 +40,18 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_dateDemarrage">Date Demarrage</label>
-            <div class="d-flex">
-                <input id="field_dateDemarrage" type="datetime-local" class="form-control" name="dateDemarrage" [(ngModel)]="placement.dateDemarrage"
+            <div class="input-group">
+                <input id="field_dateDemarrage" type="text" class="form-control" name="dateDemarrage" ngbDatepicker  #dateDemarrageDp="ngbDatepicker" [(ngModel)]="placement.dateDemarrage"
                 />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDemarrageDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_commentaires">Commentaires</label>
+            <input type="text" class="form-control" name="commentaires" id="field_commentaires"
+                [(ngModel)]="placement.commentaires" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_etat">Etat</label>

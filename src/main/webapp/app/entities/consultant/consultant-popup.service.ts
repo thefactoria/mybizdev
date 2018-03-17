@@ -2,7 +2,6 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { Consultant } from './consultant.model';
 import { ConsultantService } from './consultant.service';
 
@@ -11,7 +10,6 @@ export class ConsultantPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
-        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private consultantService: ConsultantService
@@ -31,8 +29,13 @@ export class ConsultantPopupService {
                 this.consultantService.find(id)
                     .subscribe((consultantResponse: HttpResponse<Consultant>) => {
                         const consultant: Consultant = consultantResponse.body;
-                        consultant.dateDebutInterco = this.datePipe
-                            .transform(consultant.dateDebutInterco, 'yyyy-MM-ddTHH:mm:ss');
+                        if (consultant.dateDebutInterco) {
+                            consultant.dateDebutInterco = {
+                                year: consultant.dateDebutInterco.getFullYear(),
+                                month: consultant.dateDebutInterco.getMonth() + 1,
+                                day: consultant.dateDebutInterco.getDate()
+                            };
+                        }
                         this.ngbModalRef = this.consultantModalRef(component, consultant);
                         resolve(this.ngbModalRef);
                     });

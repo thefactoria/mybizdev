@@ -16,6 +16,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+            <th><span>ID</span></th>
             <th><span>Surnom</span></th>
             <th><span>Equipe</span></th>
             <th></th>
@@ -23,10 +24,11 @@
             </thead>
             <tbody>
             <tr *ngFor="let bizDev of bizDevs ;trackBy: trackId">
+                <td><a [routerLink]="['../biz-dev', bizDev.id ]">{{bizDev.id}}</a></td>
                 <td>{{bizDev.surnom}}</td>
                 <td>
                     <div *ngIf="bizDev.equipe">
-                        <a [routerLink]="['../equipe', bizDev.equipe?.id ]" >{{bizDev.equipe?.nom}}</a>
+                        <a [routerLink]="['../equipe', bizDev.equipe?.id ]" >{{bizDev.equipe?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -18,6 +18,7 @@ export class ConsultantDialogComponent implements OnInit {
 
     consultant: Consultant;
     isSaving: boolean;
+    dateDebutIntercoDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

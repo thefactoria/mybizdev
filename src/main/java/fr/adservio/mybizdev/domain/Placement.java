@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import fr.adservio.mybizdev.domain.enumeration.Statut;
@@ -39,7 +39,10 @@ public class Placement implements Serializable {
     private String contactClient;
 
     @Column(name = "date_demarrage")
-    private ZonedDateTime dateDemarrage;
+    private LocalDate dateDemarrage;
+
+    @Column(name = "commentaires")
+    private String commentaires;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "etat")
@@ -116,17 +119,30 @@ public class Placement implements Serializable {
         this.contactClient = contactClient;
     }
 
-    public ZonedDateTime getDateDemarrage() {
+    public LocalDate getDateDemarrage() {
         return dateDemarrage;
     }
 
-    public Placement dateDemarrage(ZonedDateTime dateDemarrage) {
+    public Placement dateDemarrage(LocalDate dateDemarrage) {
         this.dateDemarrage = dateDemarrage;
         return this;
     }
 
-    public void setDateDemarrage(ZonedDateTime dateDemarrage) {
+    public void setDateDemarrage(LocalDate dateDemarrage) {
         this.dateDemarrage = dateDemarrage;
+    }
+
+    public String getCommentaires() {
+        return commentaires;
+    }
+
+    public Placement commentaires(String commentaires) {
+        this.commentaires = commentaires;
+        return this;
+    }
+
+    public void setCommentaires(String commentaires) {
+        this.commentaires = commentaires;
     }
 
     public Statut getEtat() {
@@ -198,6 +214,7 @@ public class Placement implements Serializable {
             ", contactSSII='" + getContactSSII() + "'" +
             ", contactClient='" + getContactClient() + "'" +
             ", dateDemarrage='" + getDateDemarrage() + "'" +
+            ", commentaires='" + getCommentaires() + "'" +
             ", etat='" + getEtat() + "'" +
             "}";
     }

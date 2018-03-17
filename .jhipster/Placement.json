@@ -37,7 +37,11 @@
         },
         {
             "fieldName": "dateDemarrage",
-            "fieldType": "ZonedDateTime"
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "commentaires",
+            "fieldType": "String"
         },
         {
             "fieldName": "etat",
