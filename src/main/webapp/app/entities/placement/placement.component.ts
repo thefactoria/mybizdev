@@ -24,6 +24,8 @@ export class PlacementComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
+    showArchivedPlacements = false;
+
     constructor(
         private placementService: PlacementService,
         private jhiAlertService: JhiAlertService,
@@ -89,12 +91,18 @@ export class PlacementComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    onShowArchivedPlacements(value: boolean) {
+        this.showArchivedPlacements = value;
+        this.reset();
+    }
+
     private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         for (let i = 0; i < data.length; i++) {
             this.placements.push(data[i]);
         }
+        this.placements = (this.showArchivedPlacements) ? this.placements : this.placements.filter((p: Placement) => !p.archived);
     }
 
     private onError(error) {
