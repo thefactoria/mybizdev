@@ -11,6 +11,8 @@ import {
     PlacementPopupComponent,
     PlacementDeletePopupComponent,
     PlacementDeleteDialogComponent,
+    PlacementArchivePopupComponent,
+    PlacementArchiveDialogComponent,
     placementRoute,
     placementPopupRoute,
 } from './';
@@ -30,8 +32,10 @@ const ENTITY_STATES = [
         PlacementDetailComponent,
         PlacementDialogComponent,
         PlacementDeleteDialogComponent,
+        PlacementArchiveDialogComponent,
         PlacementPopupComponent,
         PlacementDeletePopupComponent,
+        PlacementArchivePopupComponent,
     ],
     entryComponents: [
         PlacementComponent,
@@ -39,6 +43,8 @@ const ENTITY_STATES = [
         PlacementPopupComponent,
         PlacementDeleteDialogComponent,
         PlacementDeletePopupComponent,
+        PlacementArchiveDialogComponent,
+        PlacementArchivePopupComponent,
     ],
     providers: [
         PlacementService,

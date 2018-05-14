@@ -57,7 +57,8 @@
                                 [routerLink]="['/', { outlets: { popup: 'placement/'+ placement.id + '/edit'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
+                                class="btn btn-primary btn-sm"
+                                *ngIf="!placement.archived" >
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
@@ -68,6 +69,16 @@
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
                             <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                        
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'placement/'+ placement.id + '/archive'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-warning btn-sm"
+                                *ngIf="!placement.archived" >
+                            <span class="fa fa-archive"></span>
+                            <span class="d-none d-md-inline">Archive</span>
                         </button>
                     </div>
                 </td>
