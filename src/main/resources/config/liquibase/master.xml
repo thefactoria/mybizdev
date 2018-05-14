@@ -13,4 +13,6 @@
     <include file="config/liquibase/changelog/20180314094342_added_entity_constraints_Placement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180314094343_added_entity_constraints_BizDev.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/20180514140501_added_Field_Archived_for_entity_Placement.xml" relativeToChangelogFile="false"/>
+	
 </databaseChangeLog>

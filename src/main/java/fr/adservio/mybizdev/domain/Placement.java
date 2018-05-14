@@ -44,6 +44,9 @@ public class Placement implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "etat")
     private Statut etat;
+    
+    @Column(name = "archived",columnDefinition="boolean default false")
+    private Boolean archived;
 
     /**
      * Another side of the same relationship
@@ -141,6 +144,19 @@ public class Placement implements Serializable {
     public void setEtat(Statut etat) {
         this.etat = etat;
     }
+    
+    public Boolean getArchived() {
+		return archived;
+	}
+    
+    public Placement archived(Boolean archived) {
+    	this.archived = archived;
+    	return this;
+    }
+    
+    public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
 
     public Consultant getConsultant() {
         return consultant;
