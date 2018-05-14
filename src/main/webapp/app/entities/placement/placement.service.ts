@@ -13,7 +13,7 @@ export type EntityResponseType = HttpResponse<Placement>;
 @Injectable()
 export class PlacementService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/placements';
+    private resourceUrl = SERVER_API_URL + 'api/placements';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -30,7 +30,7 @@ export class PlacementService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Placement>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Placement>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -41,12 +41,16 @@ export class PlacementService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    archive(id: number): Observable<HttpResponse<any>> {
+        return this.http.patch<any>(`${this.resourceUrl}/${id}/archive`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Placement = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Placement[]>): HttpResponse<Placement[]> {
@@ -55,7 +59,7 @@ export class PlacementService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
