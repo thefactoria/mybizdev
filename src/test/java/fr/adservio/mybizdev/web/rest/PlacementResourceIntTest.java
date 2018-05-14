@@ -296,6 +296,34 @@ public class PlacementResourceIntTest {
         List<Placement> placementList = placementRepository.findAll();
         assertThat(placementList).hasSize(databaseSizeBeforeDelete - 1);
     }
+    
+    @Test
+	@Transactional
+	public void archivePlacement() throws Exception {
+		// Initialize the database
+		placementService.save(placement);
+
+		// Get the placement
+		restPlacementMockMvc
+				.perform(
+						patch("/api/placements/{id}/archive", placement.getId()).accept(TestUtil.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk());
+
+		// Validate that the Placement in the database is archived
+		Placement testPlacement = placementRepository.findOne(placement.getId());
+		assertThat(testPlacement.getArchived()).isEqualTo(Boolean.TRUE);
+	}
+
+	@Test
+	@Transactional
+	public void archiveNonExistingPlacement() throws Exception {
+
+		// If the entity with the given id doesn't exists, the archiving process will
+		// fail with 500 error code
+		restPlacementMockMvc
+				.perform(patch("/api/placements/{id}/archive", Long.MAX_VALUE).accept(TestUtil.APPLICATION_JSON_UTF8))
+				.andExpect(status().isInternalServerError());
+	}
 
     @Test
     @Transactional
