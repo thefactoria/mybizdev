@@ -139,7 +139,7 @@ public class PlacementResource {
         log.debug("REST request to archive Placement : {}", id);
         ResponseEntity<Void> response = null;
         if(placementService.archive(id)) {
-            response = ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+            response = ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
         } else {
         	response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(HeaderUtil.createFailureAlert(ENTITY_NAME, id.toString(), "Error occured while trying to archive the placement")).build();
         }
