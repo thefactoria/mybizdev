@@ -39,4 +39,11 @@ public interface PlacementService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    /**
+     * Archive the "id" placement.
+     *
+     * @param id the id of the entity
+     */
+	boolean archive(Long id);
 }

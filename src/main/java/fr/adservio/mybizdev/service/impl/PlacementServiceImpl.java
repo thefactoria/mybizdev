@@ -74,4 +74,20 @@ public class PlacementServiceImpl implements PlacementService {
         log.debug("Request to delete Placement : {}", id);
         placementRepository.delete(id);
     }
+    
+    /**
+    * Archive the "id" placement.
+    *
+    * @param id the id of the entity
+    */
+    @Override
+    public boolean archive(Long id) {
+        log.debug("Request to archive Placement : {}", id);
+    	final Placement placement = findOne(id);
+    	if(placement!=null) {
+    		placement.setArchived(true);
+    		return true;
+    	}
+    	return false;
+    }
 }

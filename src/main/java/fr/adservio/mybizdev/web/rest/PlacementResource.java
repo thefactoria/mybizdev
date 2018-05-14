@@ -124,4 +124,25 @@ public class PlacementResource {
         placementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * PATCH  /placements/:id/archive : archive the placement by the given id.
+     *
+     * @param id the id of the placement to archive
+     * @return the ResponseEntity with status 200 (OK),
+     * or with status 500 (Internal Server Error) if the placement couldn't be archived
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PatchMapping("/placements/{id}/archive")
+    @Timed
+    public ResponseEntity<Void> archivePlacement(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to archive Placement : {}", id);
+        ResponseEntity<Void> response = null;
+        if(placementService.archive(id)) {
+            response = ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        } else {
+        	response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(HeaderUtil.createFailureAlert(ENTITY_NAME, id.toString(), "Error occured while trying to archive the placement")).build();
+        }
+        return response;
+    }
 }
