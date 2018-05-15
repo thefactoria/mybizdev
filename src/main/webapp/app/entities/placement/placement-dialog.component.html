@@ -2,41 +2,36 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myPlacementLabel">Create or edit a Placement</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!placement.id">
             <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="placement.id" readonly />
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="placement.id" readonly />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nomClientFinal">Nom Client Final</label>
-            <input type="text" class="form-control" name="nomClientFinal" id="field_nomClientFinal"
-                [(ngModel)]="placement.nomClientFinal" required/>
+            <input type="text" class="form-control" name="nomClientFinal" id="field_nomClientFinal" [(ngModel)]="placement.nomClientFinal"
+                required/>
             <div [hidden]="!(editForm.controls.nomClientFinal?.dirty && editForm.controls.nomClientFinal?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.nomClientFinal?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nomClientFinal?.errors?.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nomSSII">Nom SSII</label>
-            <input type="text" class="form-control" name="nomSSII" id="field_nomSSII"
-                [(ngModel)]="placement.nomSSII" />
+            <input type="text" class="form-control" name="nomSSII" id="field_nomSSII" [(ngModel)]="placement.nomSSII" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_contactSSII">Contact SSII</label>
-            <input type="text" class="form-control" name="contactSSII" id="field_contactSSII"
-                [(ngModel)]="placement.contactSSII" />
+            <input type="text" class="form-control" name="contactSSII" id="field_contactSSII" [(ngModel)]="placement.contactSSII" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_contactClient">Contact Client</label>
-            <input type="text" class="form-control" name="contactClient" id="field_contactClient"
-                [(ngModel)]="placement.contactClient" />
+            <input type="text" class="form-control" name="contactClient" id="field_contactClient" [(ngModel)]="placement.contactClient"
+            />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_dateDemarrage">Date Demarrage</label>
@@ -47,7 +42,7 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_etat">Etat</label>
-            <select class="form-control" name="etat" [(ngModel)]="placement.etat" id="field_etat" >
+            <select class="form-control" name="etat" [(ngModel)]="placement.etat" id="field_etat">
                 <option value="GO">GO</option>
                 <option value="NOGO">NOGO</option>
                 <option value="STANDBY">STANDBY</option>
@@ -58,27 +53,49 @@
             </select>
         </div>
 
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_tjmNego">Tjm Nego</label>
+            <input type="number" class="form-control" name="tjmNego" id="field_tjmNego" [(ngModel)]="placement.tjmNego" required/>
+            <div [hidden]="!(editForm.controls.tjmNego?.dirty && editForm.controls.tjmNego?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.tjmNego?.errors?.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
         <div class="form-group">
             <label class="form-control-label" for="field_consultant">Consultant</label>
-            <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" >
+            <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" required>
                 <option [ngValue]="null"></option>
                 <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.nom}} {{consultantOption.prenom}}</option>
             </select>
+            <div [hidden]="!(editForm.controls.consultant?.dirty && editForm.controls.consultant?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.consultant?.errors?.required">
+                    This field is required.
+                </small>
+            </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_bizDev">Biz Dev</label>
-            <select class="form-control" id="field_bizDev" name="bizDev" [(ngModel)]="placement.bizDev" >
+            <select class="form-control" id="field_bizDev" name="bizDev" [(ngModel)]="placement.bizDev" required>
                 <option [ngValue]="null"></option>
                 <option [ngValue]="bizDevOption.id === placement.bizDev?.id ? placement.bizDev : bizDevOption" *ngFor="let bizDevOption of bizdevs; trackBy: trackBizDevById">{{bizDevOption.surnom}}</option>
             </select>
+            <div [hidden]="!(editForm.controls.bizDev?.dirty && editForm.controls.bizDev?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.bizDev?.errors?.required">
+                    This field is required.
+                </small>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;
+            <span>Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            <span class="fa fa-save"></span>&nbsp;
+            <span>Save</span>
         </button>
     </div>
 </form>

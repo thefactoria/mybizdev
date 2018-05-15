@@ -6,7 +6,10 @@ export const enum Statut {
     'GO',
     'NOGO',
     'STANDBY',
-    'INPROGRESS'
+    'POSITIONEMENT',
+    'ENTRETIEN_COMMERCIAL',
+    'ENTRETIEN_CLIENT',
+    'CV_ENVOYE'
 }
 
 export class Placement implements BaseEntity {
@@ -19,6 +22,7 @@ export class Placement implements BaseEntity {
         public dateDemarrage?: any,
         public etat?: Statut,
         public archived?: boolean,
+        public tjmNego?: number,
         public consultant?: Consultant,
         public bizDev?: BizDev,
     ) {
