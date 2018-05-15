@@ -1,11 +1,14 @@
-import { BaseEntity } from './../../shared';
+import { Placement } from '@ng-bootstrap/ng-bootstrap';
+
+import { BaseEntity } from '../../shared';
+import { Equipe } from '../equipe/equipe.model';
 
 export class BizDev implements BaseEntity {
     constructor(
         public id?: number,
         public surnom?: string,
-        public bizDevPlacements?: BaseEntity[],
-        public equipe?: BaseEntity,
+        public bizDevPlacements?: Placement[],
+        public equipe?: Equipe,
     ) {
     }
 }
