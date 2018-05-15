@@ -59,14 +59,14 @@
             <label class="form-control-label" for="field_consultant">Consultant</label>
             <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.id}}</option>
+                <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.nom}} {{consultantOption.prenom}}</option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_bizDev">Biz Dev</label>
             <select class="form-control" id="field_bizDev" name="bizDev" [(ngModel)]="placement.bizDev" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="bizDevOption.id === placement.bizDev?.id ? placement.bizDev : bizDevOption" *ngFor="let bizDevOption of bizdevs; trackBy: trackBizDevById">{{bizDevOption.id}}</option>
+                <option [ngValue]="bizDevOption.id === placement.bizDev?.id ? placement.bizDev : bizDevOption" *ngFor="let bizDevOption of bizdevs; trackBy: trackBizDevById">{{bizDevOption.surnom}}</option>
             </select>
         </div>
     </div>
