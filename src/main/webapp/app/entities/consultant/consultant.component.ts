@@ -14,7 +14,7 @@ import { ITEMS_PER_PAGE, Principal } from '../../shared';
 })
 export class ConsultantComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     consultants: Consultant[];
     error: any;
     success: any;
@@ -28,6 +28,9 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+
+    filteredConsultants: Consultant[];
+    keyword: string;
 
     constructor(
         private consultantService: ConsultantService,
@@ -51,9 +54,10 @@ currentAccount: any;
         this.consultantService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
-                (res: HttpResponse<Consultant[]>) => this.onSuccess(res.body, res.headers),
-                (res: HttpErrorResponse) => this.onError(res.message)
+            sort: this.sort()
+        }).subscribe(
+            (res: HttpResponse<Consultant[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     loadPage(page: number) {
@@ -63,12 +67,13 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/consultant'], {queryParams:
-            {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
+        this.router.navigate(['/consultant'], {
+            queryParams:
+                {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
         });
         this.loadAll();
     }
@@ -108,12 +113,25 @@ currentAccount: any;
         return result;
     }
 
+    onSearch(keyword?: string) {
+        this.keyword = keyword;
+        this.filteredConsultants = Object.assign([], this.consultants);
+        this.filterConsultants(keyword.toLowerCase());
+    }
+
+    private filterConsultants(keyword: string) {
+        this.filteredConsultants = this.filteredConsultants.filter((c: Consultant) => {
+            return c.nom.toLowerCase().indexOf(keyword) > -1 || c.prenom.toLowerCase().indexOf(keyword) > -1;
+        });
+    }
+
     private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
         this.consultants = data;
+        this.filteredConsultants = Object.assign([], this.consultants);
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
