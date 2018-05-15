@@ -1,11 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { debounceTime, distinctUntilChanged, filter, mergeMap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { Placement } from './placement.model';
 import { PlacementService } from './placement.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-placement',
@@ -24,6 +29,8 @@ export class PlacementComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
+    keyword: string;
+    filteredPlacements: Placement[];
     showArchivedPlacements = false;
 
     constructor(
@@ -91,9 +98,20 @@ export class PlacementComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    onShowArchivedPlacements(value: boolean) {
-        this.showArchivedPlacements = value;
-        this.reset();
+    onSearch(keyword?: string) {
+        this.keyword = keyword;
+        this.filteredPlacements = Object.assign([], this.placements);
+        this.filterPlacements(keyword.toLowerCase());
+        this.filterArchivedPlacements();
+    }
+
+    onShowArchivedPlacements(showArchived: boolean) {
+        this.showArchivedPlacements = showArchived;
+        this.filteredPlacements = Object.assign([], this.placements);
+        if (!!this.keyword) {
+            this.filterPlacements(this.keyword);
+        }
+        this.filterArchivedPlacements();
     }
 
     private onSuccess(data, headers) {
@@ -102,7 +120,20 @@ export class PlacementComponent implements OnInit, OnDestroy {
         for (let i = 0; i < data.length; i++) {
             this.placements.push(data[i]);
         }
-        this.placements = (this.showArchivedPlacements) ? this.placements : this.placements.filter((p: Placement) => !p.archived);
+        this.filteredPlacements = Object.assign([], this.placements);
+        this.filterArchivedPlacements();
+    }
+
+    private filterPlacements(keyword: string) {
+        this.filteredPlacements = this.filteredPlacements.filter((p: Placement) => {
+            return p.nomClientFinal.toLowerCase().indexOf(keyword) > -1 ||
+                p.nomSSII.toLowerCase().indexOf(keyword) > -1 ||
+                p.consultant.nom.toLowerCase().indexOf(keyword) > -1;
+        });
+    }
+
+    private filterArchivedPlacements() {
+        this.filteredPlacements = (this.showArchivedPlacements) ? this.filteredPlacements : this.filteredPlacements.filter((p: Placement) => !p.archived);
     }
 
     private onError(error) {

@@ -1,4 +1,5 @@
-import { BaseEntity } from './../../shared';
+import { BaseEntity } from '../../shared';
+import { Consultant } from '../consultant/consultant.model';
 
 export const enum Statut {
     'GO',
@@ -17,7 +18,7 @@ export class Placement implements BaseEntity {
         public dateDemarrage?: any,
         public etat?: Statut,
         public archived?: boolean,
-        public consultant?: BaseEntity,
+        public consultant?: Consultant,
         public bizDev?: BaseEntity,
     ) {
     }
