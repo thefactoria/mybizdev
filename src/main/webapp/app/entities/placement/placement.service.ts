@@ -45,6 +45,11 @@ export class PlacementService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
+    findConsultantPlacements(consultantId: number): Observable<HttpResponse<Placement[]>> {
+        return this.http.get<Placement[]>(`${this.resourceUrl}/query?consultantId=${consultantId}`, { observe: 'response' })
+            .map((res: HttpResponse<Placement[]>) => this.convertArrayResponse(res));
+    }
+
     query(req?: any): Observable<HttpResponse<Placement[]>> {
         const options = createRequestOption(req);
         return this.http.get<Placement[]>(this.resourceUrl, { params: options, observe: 'response' })

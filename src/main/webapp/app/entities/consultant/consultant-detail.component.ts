@@ -1,11 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Subscription';
 
+import { HttpResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Placement } from '../placement/placement.model';
 import { Consultant } from './consultant.model';
 import { ConsultantService } from './consultant.service';
+import { PlacementService } from '../placement/placement.service';
 
 @Component({
     selector: 'jhi-consultant-detail',
@@ -17,9 +20,12 @@ export class ConsultantDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
+    consultantPlacements: Placement[];
+
     constructor(
         private eventManager: JhiEventManager,
         private consultantService: ConsultantService,
+        private placementService: PlacementService,
         private route: ActivatedRoute
     ) {
     }
@@ -27,6 +33,7 @@ export class ConsultantDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
+            this.loadConsultantPlacements(params['id']);
         });
         this.registerChangeInConsultants();
     }
@@ -37,6 +44,14 @@ export class ConsultantDetailComponent implements OnInit, OnDestroy {
                 this.consultant = consultantResponse.body;
             });
     }
+
+    loadConsultantPlacements(id) {
+        this.placementService.findConsultantPlacements(id)
+            .subscribe((consultantPlacementsResponse: HttpResponse<Placement[]>) => {
+                this.consultantPlacements = consultantPlacementsResponse.body;
+            });
+    }
+
     previousState() {
         window.history.back();
     }

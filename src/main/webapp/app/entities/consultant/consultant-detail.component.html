@@ -1,47 +1,105 @@
-
 <div *ngIf="consultant">
-    <h2><span>Consultant</span> {{consultant.id}}</h2>
+    <h2>
+        <span>Consultant</span> {{consultant.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span>Nom</span></dt>
-        <dd>
-            <span>{{consultant.nom}}</span>
-        </dd>
-        <dt><span>Prenom</span></dt>
-        <dd>
-            <span>{{consultant.prenom}}</span>
-        </dd>
-        <dt><span>Cjm</span></dt>
-        <dd>
-            <span>{{consultant.cjm}}</span>
-        </dd>
-        <dt><span>Tj Min</span></dt>
-        <dd>
-            <span>{{consultant.tjMin}}</span>
-        </dd>
-        <dt><span>En mission</span></dt>
-        <dd>
-            <span *ngIf="consultant.inMission">Oui</span>
-            <span *ngIf="!consultant.inMission">Non</span>
-        </dd>
-        <dt><span>Date Debut Interco</span></dt>
-        <dd>
-            <span>{{consultant.dateDebutInterco | date:'dd/MM/yyyy'}}</span>
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-3">
+            <dl class="row-md jh-entity-details">
+                <dt>
+                    <span>Nom</span>
+                </dt>
+                <dd>
+                    <span>{{consultant.nom}}</span>
+                </dd>
+                <dt>
+                    <span>Prenom</span>
+                </dt>
+                <dd>
+                    <span>{{consultant.prenom}}</span>
+                </dd>
+                <dt>
+                    <span>Cjm</span>
+                </dt>
+                <dd>
+                    <span>{{consultant.cjm}}</span>
+                </dd>
+                <dt>
+                    <span>Tj Min</span>
+                </dt>
+                <dd>
+                    <span>{{consultant.tjMin}}</span>
+                </dd>
+                <dt>
+                    <span>En mission</span>
+                </dt>
+                <dd>
+                    <span *ngIf="consultant.inMission">Oui</span>
+                    <span *ngIf="!consultant.inMission">Non</span>
+                </dd>
+                <dt>
+                    <span>Date Debut Interco</span>
+                </dt>
+                <dd>
+                    <span>{{consultant.dateDebutInterco | date:'dd/MM/yyyy'}}</span>
+                </dd>
+            </dl>
+            <button type="submit" (click)="previousState()" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span> Back</span>
+            </button>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
+            <button type="button" [routerLink]="['/', { outlets: { popup: 'consultant/'+ consultant.id + '/edit'} }]" replaceUrl="true"
+                queryParamsHandling="merge" class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;
+                <span> Edit</span>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <div class="table-responsive" *ngIf="consultantPlacements">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>Nom Client Final</span>
+                            </th>
+                            <th>
+                                <span>Nom SSII</span>
+                            </th>
+                            <th>
+                                <span>Date Demarrage</span>
+                            </th>
+                            <th>
+                                <span>Etat</span>
+                            </th>
+                            <th>
+                                <span>TJM Nego</span>
+                            </th>
+                            <th>
+                                <span>TJM Final</span>
+                            </th>
+                            <th>
+                                <span>Biz Dev</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let placement of consultantPlacements">
+                            <td>{{placement.nomClientFinal}}</td>
+                            <td>{{placement.nomSSII}}</td>
+                            <td>{{placement.dateDemarrage | date:'dd/MM/yyyy'}}</td>
+                            <td>{{placement.etat}}</td>
+                            <td>{{placement.tjmNego}}</td>
+                            <td>{{placement.tjmFinal}}</td>
+                            <td>
+                                <div *ngIf="placement.bizDev">
+                                    <a [routerLink]="['../biz-dev', placement.bizDev?.id ]">{{placement.bizDev?.surnom}}</a>
+                                </div>
+                            </td>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'consultant/'+ consultant.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-    </button>
-</div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
