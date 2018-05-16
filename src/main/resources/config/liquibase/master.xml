@@ -16,4 +16,5 @@
     <include file="config/liquibase/changelog/20180514140501_added_Field_Archived_for_entity_Placement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180515150727_added_Field_TjmNego_for_Entity_Placement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180516141328_moved_field_TjmFinal_from_entity_Consultant_to_Entity_Placement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180516143830_added_field_InMission_for_entity_Consultant.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
