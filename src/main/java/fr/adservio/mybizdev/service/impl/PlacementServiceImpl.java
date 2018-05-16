@@ -127,6 +127,7 @@ public class PlacementServiceImpl implements PlacementService {
 			if (placement.getConsultant() != null && placement.getConsultant().getId() != null) {
 				final Consultant consultant = consultantService.findOne(placement.getConsultant().getId());
 				if (consultant != null) {
+					consultant.setInMission(true);
 					archiveOtherPlacements(placement.getId(), consultant.getId());
 				}
 			}
