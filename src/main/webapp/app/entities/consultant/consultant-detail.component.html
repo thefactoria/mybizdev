@@ -20,6 +20,11 @@
         <dd>
             <span>{{consultant.tjMin}}</span>
         </dd>
+        <dt><span>En mission</span></dt>
+        <dd>
+            <span *ngIf="consultant.inMission">Oui</span>
+            <span *ngIf="!consultant.inMission">Non</span>
+        </dd>
         <dt><span>Date Debut Interco</span></dt>
         <dd>
             <span>{{consultant.dateDebutInterco | date:'dd/MM/yyyy'}}</span>

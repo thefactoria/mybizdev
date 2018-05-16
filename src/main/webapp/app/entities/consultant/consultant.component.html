@@ -39,6 +39,10 @@
                         <span>Tj Min</span>
                         <span class="fa fa-sort"></span>
                     </th>
+                    <th jhiSortBy="tjMin">
+                        <span>En mission</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
                     <th jhiSortBy="dateDebutInterco">
                         <span>Date Debut Interco</span>
                         <span class="fa fa-sort"></span>
@@ -52,6 +56,10 @@
                     <td>{{consultant.prenom}}</td>
                     <td>{{consultant.cjm}}</td>
                     <td>{{consultant.tjMin}}</td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="consultant.inMission">Oui</span>
+                        <span class="badge badge-default" *ngIf="!consultant.inMission">Non</span>
+                    </td>
                     <td>{{consultant.dateDebutInterco | date:'dd/MM/yyyy'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
