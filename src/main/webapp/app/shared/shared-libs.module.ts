@@ -1,11 +1,13 @@
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgJhipsterModule } from 'ng-jhipster';
+import { CookieModule } from 'ngx-cookie';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgJhipsterModule } from 'ng-jhipster';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
     imports: [
@@ -15,6 +17,7 @@ import { CookieModule } from 'ngx-cookie';
             alertAsToast: false,
         }),
         InfiniteScrollModule,
+        MultiselectDropdownModule,
         CookieModule.forRoot()
     ],
     exports: [
@@ -23,7 +26,8 @@ import { CookieModule } from 'ngx-cookie';
         CommonModule,
         NgbModule,
         NgJhipsterModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        MultiselectDropdownModule
     ]
 })
-export class MybizdevSharedLibsModule {}
+export class MybizdevSharedLibsModule { }
