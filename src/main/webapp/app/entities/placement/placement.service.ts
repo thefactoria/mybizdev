@@ -23,6 +23,12 @@ export class PlacementService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
+    createAll(placements: Placement[]): Observable<HttpResponse<Placement[]>> {
+        const copy = this.convertArray(placements);
+        return this.http.post<Placement[]>(`${this.resourceUrl}/all`, copy, { observe: 'response' })
+            .map((res: HttpResponse<Placement[]>) => this.convertArrayResponse(res));
+    }
+
     update(placement: Placement): Observable<EntityResponseType> {
         const copy = this.convert(placement);
         return this.http.put<Placement>(this.resourceUrl, copy, { observe: 'response' })
@@ -79,6 +85,15 @@ export class PlacementService {
         const copy: Placement = Object.assign({}, placement);
 
         copy.dateDemarrage = this.dateUtils.toDate(placement.dateDemarrage);
+        return copy;
+    }
+
+    private convertArray(placements: Placement[]): Placement[] {
+        if (!placements) {
+            return;
+        }
+        const copy: Placement[] = [];
+        placements.forEach((p: Placement) => copy.push(this.convert(p)));
         return copy;
     }
 }

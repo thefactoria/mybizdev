@@ -58,18 +58,33 @@
             <label class="form-control-label" for="field_tjmNego">Tjm Nego</label>
             <input type="number" class="form-control" name="tjmNego" id="field_tjmNego" [(ngModel)]="placement.tjmNego" />
         </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_consultant">Consultant</label>
-            <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.nom}} {{consultantOption.prenom}}</option>
-            </select>
-            <div [hidden]="!(editForm.controls.consultant?.dirty && editForm.controls.consultant?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.consultant?.errors?.required">
-                    This field is required.
-                </small>
+        <ng-template [ngIf]="placement.id && placement.consultant" [ngIfThen]="placemenConsultantDefinedTpl" [ngIfElse]="placemenConsultantUndefinedTpl"></ng-template>
+        <ng-template #placemenConsultantDefinedTpl>
+            <div class="form-group">
+                <label class="form-control-label" for="field_consultant">Consultant</label>
+                <select class="form-control" id="field_consultant" name="consultant" [(ngModel)]="placement.consultant" required>
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="consultantOption.id === placement.consultant?.id ? placement.consultant : consultantOption" *ngFor="let consultantOption of consultants; trackBy: trackConsultantById">{{consultantOption.nom}} {{consultantOption.prenom}}</option>
+                </select>
+                <div [hidden]="!(editForm.controls.consultant?.dirty && editForm.controls.consultant?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.consultant?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
-        </div>
+        </ng-template>
+        <ng-template #placemenConsultantUndefinedTpl>
+            <div class="form-group" *ngIf="consultantOptions && consultantOptions.length > 0">
+                <label class="form-control-label" for="field_consultants">Consultants</label>
+                <ss-multiselect-dropdown id="field_consultants" name="consultants" [settings]="palcementConsultantsSettings" [texts]="palcementConsultantsTexts"
+                    [options]="consultantOptions" [(ngModel)]="placementConsultants" required></ss-multiselect-dropdown>
+                <div [hidden]="!(editForm.controls.consultants?.dirty && editForm.controls.consultants?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.consultants?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+        </ng-template>
         <div class="form-group">
             <label class="form-control-label" for="field_bizDev">Biz Dev</label>
             <select class="form-control" id="field_bizDev" name="bizDev" [(ngModel)]="placement.bizDev" required>
