@@ -3,6 +3,9 @@ package fr.adservio.mybizdev.service.impl;
 import fr.adservio.mybizdev.service.PlacementService;
 import fr.adservio.mybizdev.domain.Placement;
 import fr.adservio.mybizdev.repository.PlacementRepository;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -36,6 +39,18 @@ public class PlacementServiceImpl implements PlacementService {
     public Placement save(Placement placement) {
         log.debug("Request to save Placement : {}", placement);
         return placementRepository.save(placement);
+    }
+    
+    /**
+     * Save a list of placements.
+     *
+     * @param placements the array of placement entities to save
+     * @return the array of persisted entities
+     */
+    @Override
+    public List<Placement> save(List<Placement> placements) {
+        log.debug("Request to save array of Placements : {}", placements);
+        return placementRepository.save(placements);
     }
 
     /**

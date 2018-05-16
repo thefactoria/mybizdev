@@ -1,6 +1,9 @@
 package fr.adservio.mybizdev.service;
 
 import fr.adservio.mybizdev.domain.Placement;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,6 +19,15 @@ public interface PlacementService {
      * @return the persisted entity
      */
     Placement save(Placement placement);
+    
+
+    /**
+     * Save a list of placements.
+     *
+     * @param placements the array of placement entities to save
+     * @return the array of persisted entities
+     */
+	List<Placement> save(List<Placement> placements);
 
     /**
      * Get all the placements.
