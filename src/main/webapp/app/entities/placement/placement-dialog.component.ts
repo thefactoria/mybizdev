@@ -10,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BizDev, BizDevService } from '../biz-dev';
 import { Consultant, ConsultantService } from '../consultant';
 import { PlacementPopupService } from './placement-popup.service';
-import { Placement } from './placement.model';
+import { Placement, Statut } from './placement.model';
 import { PlacementService } from './placement.service';
 
 @Component({
@@ -53,6 +53,8 @@ export class PlacementDialogComponent implements OnInit {
 
     bizdevs: BizDev[];
 
+    tjmFinalValue: number;
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
@@ -79,8 +81,9 @@ export class PlacementDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<BizDev[]>) => { this.bizdevs = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
-    onConsultantSelect(consultant: Consultant) {
-        console.log(consultant);
+    onGoInMission(placement: Placement, tjmFinal: number) {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.placementService.goInMission(this.placement, tjmFinal));
     }
 
     clear() {

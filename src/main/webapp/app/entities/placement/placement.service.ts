@@ -35,6 +35,11 @@ export class PlacementService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
+    goInMission(placement: Placement, tjmFinal: number): Observable<EntityResponseType> {
+        return this.http.put<Placement>(`${this.resourceUrl}/${placement.id}/go-in-mission`, tjmFinal, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<Placement>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
