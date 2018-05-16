@@ -44,8 +44,7 @@ public class Consultant implements Serializable {
 	@Column(name = "in_mission", columnDefinition = "boolean default false")
 	private Boolean inMission;
 
-	@NotNull
-	@Column(name = "date_debut_interco", nullable = false)
+	@Column(name = "date_debut_interco")
 	private ZonedDateTime dateDebutInterco;
 
 	@OneToMany(mappedBy = "consultant")

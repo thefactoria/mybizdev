@@ -128,6 +128,7 @@ public class PlacementServiceImpl implements PlacementService {
 				final Consultant consultant = consultantService.findOne(placement.getConsultant().getId());
 				if (consultant != null) {
 					consultant.setInMission(true);
+					consultant.setDateDebutInterco(null);
 					archiveOtherPlacements(placement.getId(), consultant.getId());
 				}
 			}
