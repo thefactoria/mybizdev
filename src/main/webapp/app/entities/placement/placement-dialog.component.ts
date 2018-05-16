@@ -20,6 +20,9 @@ export class PlacementDialogComponent implements OnInit {
 
     placement: Placement;
     isSaving: boolean;
+    get nomClientFinalOrnomSSIIError(): boolean {
+        return !this.placement.nomClientFinal && !this.placement.nomSSII;
+    }
 
     consultants: Consultant[];
 
@@ -48,6 +51,9 @@ export class PlacementDialogComponent implements OnInit {
     }
 
     save() {
+        if (this.nomClientFinalOrnomSSIIError) {
+            return;
+        }
         this.isSaving = true;
         if (this.placement.id !== undefined) {
             this.subscribeToSaveResponse(
@@ -64,7 +70,7 @@ export class PlacementDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Placement) {
-        this.eventManager.broadcast({ name: 'placementListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'placementListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -97,11 +103,11 @@ export class PlacementPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private placementPopupService: PlacementPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.placementPopupService
                     .open(PlacementDialogComponent as Component, params['id']);
             } else {

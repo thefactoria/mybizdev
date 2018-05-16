@@ -6,19 +6,19 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group"  *ngIf="false">
+        <div class="form-group" *ngIf="false">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="placement.id" readonly />
+        </div>
+        <div [hidden]="!((editForm.controls.nomClientFinal?.dirty || editForm.controls.nomSSII?.dirty) && nomClientFinalOrnomSSIIError)">
+            <small class="form-text text-danger" [hidden]="!nomClientFinalOrnomSSIIError">
+                At least Nom Client Final or Nom SSII must be defined
+            </small>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nomClientFinal">Nom Client Final</label>
             <input type="text" class="form-control" name="nomClientFinal" id="field_nomClientFinal" [(ngModel)]="placement.nomClientFinal"
-                required/>
-            <div [hidden]="!(editForm.controls.nomClientFinal?.dirty && editForm.controls.nomClientFinal?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.nomClientFinal?.errors?.required">
-                    This field is required.
-                </small>
-            </div>
+            />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nomSSII">Nom SSII</label>
@@ -56,12 +56,7 @@
 
         <div class="form-group">
             <label class="form-control-label" for="field_tjmNego">Tjm Nego</label>
-            <input type="number" class="form-control" name="tjmNego" id="field_tjmNego" [(ngModel)]="placement.tjmNego" required/>
-            <div [hidden]="!(editForm.controls.tjmNego?.dirty && editForm.controls.tjmNego?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.tjmNego?.errors?.required">
-                    This field is required.
-                </small>
-            </div>
+            <input type="number" class="form-control" name="tjmNego" id="field_tjmNego" [(ngModel)]="placement.tjmNego" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_consultant">Consultant</label>
@@ -93,7 +88,7 @@
             <span class="fa fa-ban"></span>&nbsp;
             <span>Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <button type="submit" [disabled]="nomClientFinalOrnomSSIIError || editForm.form.invalid || isSaving" class="btn btn-primary">
             <span class="fa fa-save"></span>&nbsp;
             <span>Save</span>
         </button>
