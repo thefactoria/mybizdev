@@ -100,8 +100,8 @@
     <div class="modal-footer">
         <ng-template [ngIf]="placement.id && placement.etat !== 'GO'">
             <label>Renseignez le TJM Final : </label>
-            <input type="number" class="form-control-sm" name="tjmFinal" [(ngModel)]="tjmFinalValue" />
-            <button [disabled]="tjmFinalValue &lt;= 0 || isSaving" (click)="onGoInMission(placement, tjmFinalValue)" class="btn btn-success btn-sm">Départ en mission
+            <input type="number" class="form-control-sm" name="tjmFinal" [(ngModel)]="placement.tjmFinal" />
+            <button [disabled]="placement.tjmFinal &lt;= 0 || isSaving" (click)="onGoInMission(placement, placement.tjmFinal)" class="btn btn-success btn-sm">Départ en mission
                 <i class="fa fa-sign-out"></i>
             </button>
         </ng-template>

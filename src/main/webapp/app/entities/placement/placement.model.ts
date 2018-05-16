@@ -23,6 +23,7 @@ export class Placement implements BaseEntity {
         public etat?: Statut,
         public archived?: boolean,
         public tjmNego?: number,
+        public tjmFinal?: number,
         public consultant?: Consultant,
         public bizDev?: BizDev,
     ) {

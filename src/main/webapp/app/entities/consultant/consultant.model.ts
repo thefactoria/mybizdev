@@ -7,7 +7,6 @@ export class Consultant implements BaseEntity {
         public prenom?: string,
         public cjm?: number,
         public tjMin?: number,
-        public tjmFinal?: number,
         public dateDebutInterco?: any,
         public placements?: BaseEntity[],
     ) {

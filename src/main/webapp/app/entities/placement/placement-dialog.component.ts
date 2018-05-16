@@ -53,8 +53,6 @@ export class PlacementDialogComponent implements OnInit {
 
     bizdevs: BizDev[];
 
-    tjmFinalValue: number;
-
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,

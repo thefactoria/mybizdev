@@ -63,6 +63,9 @@ public class PlacementResourceIntTest {
     private static final Statut DEFAULT_ETAT = Statut.GO;
     private static final Statut UPDATED_ETAT = Statut.NOGO;
 
+    private static final Integer DEFAULT_TJM_FINAL = 1;
+    private static final Integer UPDATED_TJM_FINAL = 2;
+
     @Autowired
     private PlacementRepository placementRepository;
 

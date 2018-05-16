@@ -56,9 +56,6 @@ public class ConsultantResourceIntTest {
     private static final Integer DEFAULT_TJ_MIN = 1;
     private static final Integer UPDATED_TJ_MIN = 2;
 
-    private static final Integer DEFAULT_TJM_FINAL = 1;
-    private static final Integer UPDATED_TJM_FINAL = 2;
-
     private static final ZonedDateTime DEFAULT_DATE_DEBUT_INTERCO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DATE_DEBUT_INTERCO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
@@ -107,7 +104,6 @@ public class ConsultantResourceIntTest {
             .prenom(DEFAULT_PRENOM)
             .cjm(DEFAULT_CJM)
             .tjMin(DEFAULT_TJ_MIN)
-            .tjmFinal(DEFAULT_TJM_FINAL)
             .dateDebutInterco(DEFAULT_DATE_DEBUT_INTERCO);
         return consultant;
     }
@@ -136,7 +132,6 @@ public class ConsultantResourceIntTest {
         assertThat(testConsultant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
         assertThat(testConsultant.getCjm()).isEqualTo(DEFAULT_CJM);
         assertThat(testConsultant.getTjMin()).isEqualTo(DEFAULT_TJ_MIN);
-        assertThat(testConsultant.getTjmFinal()).isEqualTo(DEFAULT_TJM_FINAL);
         assertThat(testConsultant.getDateDebutInterco()).isEqualTo(DEFAULT_DATE_DEBUT_INTERCO);
     }
 
@@ -264,7 +259,6 @@ public class ConsultantResourceIntTest {
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM.toString())))
             .andExpect(jsonPath("$.[*].cjm").value(hasItem(DEFAULT_CJM)))
             .andExpect(jsonPath("$.[*].tjMin").value(hasItem(DEFAULT_TJ_MIN)))
-            .andExpect(jsonPath("$.[*].tjmFinal").value(hasItem(DEFAULT_TJM_FINAL)))
             .andExpect(jsonPath("$.[*].dateDebutInterco").value(hasItem(sameInstant(DEFAULT_DATE_DEBUT_INTERCO))));
     }
 
@@ -283,7 +277,6 @@ public class ConsultantResourceIntTest {
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM.toString()))
             .andExpect(jsonPath("$.cjm").value(DEFAULT_CJM))
             .andExpect(jsonPath("$.tjMin").value(DEFAULT_TJ_MIN))
-            .andExpect(jsonPath("$.tjmFinal").value(DEFAULT_TJM_FINAL))
             .andExpect(jsonPath("$.dateDebutInterco").value(sameInstant(DEFAULT_DATE_DEBUT_INTERCO)));
     }
 
@@ -312,7 +305,6 @@ public class ConsultantResourceIntTest {
             .prenom(UPDATED_PRENOM)
             .cjm(UPDATED_CJM)
             .tjMin(UPDATED_TJ_MIN)
-            .tjmFinal(UPDATED_TJM_FINAL)
             .dateDebutInterco(UPDATED_DATE_DEBUT_INTERCO);
 
         restConsultantMockMvc.perform(put("/api/consultants")
@@ -328,7 +320,6 @@ public class ConsultantResourceIntTest {
         assertThat(testConsultant.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testConsultant.getCjm()).isEqualTo(UPDATED_CJM);
         assertThat(testConsultant.getTjMin()).isEqualTo(UPDATED_TJ_MIN);
-        assertThat(testConsultant.getTjmFinal()).isEqualTo(UPDATED_TJM_FINAL);
         assertThat(testConsultant.getDateDebutInterco()).isEqualTo(UPDATED_DATE_DEBUT_INTERCO);
     }
 
