@@ -1,5 +1,7 @@
 package fr.adservio.mybizdev.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +20,7 @@ public interface PlacementRepository extends JpaRepository<Placement, Long> {
 	@Modifying
 	@Query("update Placement p set p.archived = true where p.id != :placementId and p.consultant.id = :consultantId")
 	void archiveOtherPlacements(@Param("placementId") Long placementId, @Param("consultantId") Long consultantId);
+
+	List<Placement> findByConsultant_Id(Long consultantId);
 
 }

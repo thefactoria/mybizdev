@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -150,6 +151,15 @@ public class PlacementResource {
 		Page<Placement> page = placementService.findAll(pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/placements");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+
+	@GetMapping("/placements/query")
+	@Timed
+	public ResponseEntity<List<Placement>> getAllPlacementsForConsultant(
+			@RequestParam("consultantId") Long consultantId) {
+		log.debug("REST request to get a list of Placements for Consultant {}", consultantId);
+		List<Placement> list = placementService.findAllPlacementsForConsultant(consultantId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	/**

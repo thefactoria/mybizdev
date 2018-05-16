@@ -135,6 +135,11 @@ public class PlacementServiceImpl implements PlacementService {
 		return placement;
 	}
 
+	@Override
+	public List<Placement> findAllPlacementsForConsultant(Long consultantId) {
+		return placementRepository.findByConsultant_Id(consultantId);
+	}
+
 	private void archiveOtherPlacements(Long placementId, Long consultantId) {
 		placementRepository.archiveOtherPlacements(placementId, consultantId);
 	}

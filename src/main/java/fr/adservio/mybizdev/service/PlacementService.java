@@ -61,4 +61,7 @@ public interface PlacementService {
 
 
 	Placement goInMission(Long id, Integer tjmFinal);
+
+
+	List<Placement> findAllPlacementsForConsultant(Long consultantId);
 }
