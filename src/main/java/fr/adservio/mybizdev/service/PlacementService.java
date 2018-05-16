@@ -58,4 +58,7 @@ public interface PlacementService {
      * @param id the id of the entity
      */
 	boolean archive(Long id);
+
+
+	Placement goInMission(Long id, Integer tjmFinal);
 }

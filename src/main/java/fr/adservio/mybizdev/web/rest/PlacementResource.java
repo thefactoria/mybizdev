@@ -125,6 +125,16 @@ public class PlacementResource {
 				.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, placement.getId().toString())).body(result);
 	}
 
+	@PutMapping("/placements/{id}/go-in-mission")
+	@Timed
+	public ResponseEntity<Placement> goInMission(@PathVariable Long id, @RequestBody Integer tjmFinal)
+			throws URISyntaxException {
+		log.debug("REST request to update Placement etat: {}", id);
+
+		Placement result = placementService.goInMission(id, tjmFinal);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).body(result);
+	}
+
 	/**
 	 * GET /placements : get all the placements.
 	 *
