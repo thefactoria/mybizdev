@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!placement.id">
+        <div class="form-group"  *ngIf="false">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="placement.id" readonly />
         </div>

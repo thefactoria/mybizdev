@@ -2,86 +2,71 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myConsultantLabel">Create or edit a Consultant</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!consultant.id">
+        <div class="form-group" *ngIf="false">
             <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="consultant.id" readonly />
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="consultant.id" readonly />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_nom">Nom</label>
-            <input type="text" class="form-control" name="nom" id="field_nom"
-                [(ngModel)]="consultant.nom" required/>
+            <input type="text" class="form-control" name="nom" id="field_nom" [(ngModel)]="consultant.nom" required/>
             <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.nom?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nom?.errors?.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_prenom">Prenom</label>
-            <input type="text" class="form-control" name="prenom" id="field_prenom"
-                [(ngModel)]="consultant.prenom" required/>
+            <input type="text" class="form-control" name="prenom" id="field_prenom" [(ngModel)]="consultant.prenom" required/>
             <div [hidden]="!(editForm.controls.prenom?.dirty && editForm.controls.prenom?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.prenom?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.prenom?.errors?.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_cjm">Cjm</label>
-            <input type="number" class="form-control" name="cjm" id="field_cjm"
-                [(ngModel)]="consultant.cjm" required/>
+            <input type="number" class="form-control" name="cjm" id="field_cjm" [(ngModel)]="consultant.cjm" required/>
             <div [hidden]="!(editForm.controls.cjm?.dirty && editForm.controls.cjm?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.cjm?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cjm?.errors?.required">
+                    This field is required.
                 </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.cjm?.errors?.number">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cjm?.errors?.number">
                     This field should be a number.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_tjMin">Tj Min</label>
-            <input type="number" class="form-control" name="tjMin" id="field_tjMin"
-                [(ngModel)]="consultant.tjMin" required/>
+            <input type="number" class="form-control" name="tjMin" id="field_tjMin" [(ngModel)]="consultant.tjMin" required/>
             <div [hidden]="!(editForm.controls.tjMin?.dirty && editForm.controls.tjMin?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.tjMin?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.tjMin?.errors?.required">
+                    This field is required.
                 </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.tjMin?.errors?.number">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.tjMin?.errors?.number">
                     This field should be a number.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_tjmFinal">Tjm Final</label>
-            <input type="number" class="form-control" name="tjmFinal" id="field_tjmFinal"
-                [(ngModel)]="consultant.tjmFinal" />
+            <input type="number" class="form-control" name="tjmFinal" id="field_tjmFinal" [(ngModel)]="consultant.tjmFinal" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_dateDebutInterco">Date Debut Interco</label>
             <div class="d-flex">
                 <input id="field_dateDebutInterco" type="datetime-local" class="form-control" name="dateDebutInterco" [(ngModel)]="consultant.dateDebutInterco"
-                required/>
+                    required/>
             </div>
             <div [hidden]="!(editForm.controls.dateDebutInterco?.dirty && editForm.controls.dateDebutInterco?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.dateDebutInterco?.errors?.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.dateDebutInterco?.errors?.required">
+                    This field is required.
                 </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.dateDebutInterco?.errors?.ZonedDateTimelocal">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.dateDebutInterco?.errors?.ZonedDateTimelocal">
                     This field should be a date and time.
                 </small>
             </div>
@@ -90,10 +75,12 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;
+            <span>Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            <span class="fa fa-save"></span>&nbsp;
+            <span>Save</span>
         </button>
     </div>
 </form>
