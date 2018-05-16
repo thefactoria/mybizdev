@@ -123,10 +123,10 @@ public class PlacementServiceImpl implements PlacementService {
 		final Placement placement = findOne(id);
 		if (placement != null) {
 			placement.setEtat(Statut.GO);
+			placement.setTjmFinal(tjmFinal);
 			if (placement.getConsultant() != null && placement.getConsultant().getId() != null) {
 				final Consultant consultant = consultantService.findOne(placement.getConsultant().getId());
 				if (consultant != null) {
-					consultant.setTjmFinal(tjmFinal);
 					archiveOtherPlacements(placement.getId(), consultant.getId());
 				}
 			}

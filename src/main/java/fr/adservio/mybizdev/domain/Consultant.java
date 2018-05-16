@@ -41,9 +41,6 @@ public class Consultant implements Serializable {
     @Column(name = "tj_min", nullable = false)
     private Integer tjMin;
 
-    @Column(name = "tjm_final")
-    private Integer tjmFinal;
-
     @NotNull
     @Column(name = "date_debut_interco", nullable = false)
     private ZonedDateTime dateDebutInterco;
@@ -113,19 +110,6 @@ public class Consultant implements Serializable {
         this.tjMin = tjMin;
     }
 
-    public Integer getTjmFinal() {
-        return tjmFinal;
-    }
-
-    public Consultant tjmFinal(Integer tjmFinal) {
-        this.tjmFinal = tjmFinal;
-        return this;
-    }
-
-    public void setTjmFinal(Integer tjmFinal) {
-        this.tjmFinal = tjmFinal;
-    }
-
     public ZonedDateTime getDateDebutInterco() {
         return dateDebutInterco;
     }
@@ -193,7 +177,6 @@ public class Consultant implements Serializable {
             ", prenom='" + getPrenom() + "'" +
             ", cjm=" + getCjm() +
             ", tjMin=" + getTjMin() +
-            ", tjmFinal=" + getTjmFinal() +
             ", dateDebutInterco='" + getDateDebutInterco() + "'" +
             "}";
     }

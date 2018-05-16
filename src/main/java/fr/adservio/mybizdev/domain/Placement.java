@@ -48,6 +48,9 @@ public class Placement implements Serializable {
 	@Column(name = "tjm_nego")
 	private Integer tjmNego;
 
+	@Column(name = "tjm_final")
+	private Integer tjmFinal;
+
 	@Column(name = "archived", columnDefinition = "boolean default false")
 	private Boolean archived;
 
@@ -160,6 +163,19 @@ public class Placement implements Serializable {
 
 	public void setTjmNego(Integer tjmNego) {
 		this.tjmNego = tjmNego;
+	}
+
+	public Integer getTjmFinal() {
+		return tjmFinal;
+	}
+
+	public Placement tjmFinal(Integer tjmFinal) {
+		this.tjmFinal = tjmFinal;
+		return this;
+	}
+
+	public void setTjmFinal(Integer tjmFinal) {
+		this.tjmFinal = tjmFinal;
 	}
 
 	public Boolean getArchived() {
