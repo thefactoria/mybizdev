@@ -165,24 +165,6 @@ public class PlacementResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNomClientFinalIsRequired() throws Exception {
-        int databaseSizeBeforeTest = placementRepository.findAll().size();
-        // set the field null
-        placement.setNomClientFinal(null);
-
-        // Create the Placement, which fails.
-
-        restPlacementMockMvc.perform(post("/api/placements")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(placement)))
-            .andExpect(status().isBadRequest());
-
-        List<Placement> placementList = placementRepository.findAll();
-        assertThat(placementList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllPlacements() throws Exception {
         // Initialize the database
         placementRepository.saveAndFlush(placement);

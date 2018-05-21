@@ -228,24 +228,6 @@ public class ConsultantResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDateDebutIntercoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = consultantRepository.findAll().size();
-        // set the field null
-        consultant.setDateDebutInterco(null);
-
-        // Create the Consultant, which fails.
-
-        restConsultantMockMvc.perform(post("/api/consultants")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(consultant)))
-            .andExpect(status().isBadRequest());
-
-        List<Consultant> consultantList = consultantRepository.findAll();
-        assertThat(consultantList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllConsultants() throws Exception {
         // Initialize the database
         consultantRepository.saveAndFlush(consultant);
