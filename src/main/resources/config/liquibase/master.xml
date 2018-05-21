@@ -18,4 +18,5 @@
     <include file="config/liquibase/changelog/20180516141328_moved_field_TjmFinal_from_entity_Consultant_to_Entity_Placement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180516143830_added_field_InMission_for_entity_Consultant.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180516155626_removed_constraint_required_for_DateInterCo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180521145834_removed_constraint_required_for_NomClientFinal.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

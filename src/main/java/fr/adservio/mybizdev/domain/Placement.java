@@ -26,7 +26,7 @@ public class Placement implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(name = "nom_client_final", nullable = false)
+	@Column(name = "nom_client_final")
 	private String nomClientFinal;
 
 	@Column(name = "nom_ssii")
