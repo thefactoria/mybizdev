@@ -12,6 +12,8 @@ import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { Placement } from './placement.model';
 import { PlacementService } from './placement.service';
 
+import * as _ from 'lodash';
+
 @Component({
     selector: 'jhi-placement',
     templateUrl: './placement.component.html'
@@ -29,7 +31,8 @@ export class PlacementComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
-    keyword: string;
+    filterHeaderOn = false;
+    filter: any = {};
     filteredPlacements: Placement[];
     showArchivedPlacements = false;
 
@@ -98,20 +101,38 @@ export class PlacementComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    onSearch(keyword?: string) {
-        this.keyword = keyword;
+    toggleFilterHeader() {
+        this.filterHeaderOn = !this.filterHeaderOn;
+        this.filter = {
+            etats: {
+                all: true
+            }
+        };
         this.filteredPlacements = Object.assign([], this.placements);
-        this.filterPlacements(keyword.toLowerCase());
+        this.filterPlacementsByKeywords();
         this.filterArchivedPlacements();
     }
 
     onShowArchivedPlacements(showArchived: boolean) {
         this.showArchivedPlacements = showArchived;
+        this.onFilter();
+    }
+
+    onAllEtatChecked(checked: boolean) {
+        this.filter.etats = (checked) ? { all: true } : this.filter.etats;
+        this.onFilter();
+    }
+
+    onEtatChecked() {
+        this.filter.etats['all'] = false;
+        this.onFilter();
+    }
+
+    onFilter() {
         this.filteredPlacements = Object.assign([], this.placements);
-        if (!!this.keyword) {
-            this.filterPlacements(this.keyword);
-        }
+        this.filterPlacementsByEtat();
         this.filterArchivedPlacements();
+        this.filterPlacementsByKeywords();
     }
 
     private onSuccess(data, headers) {
@@ -124,13 +145,28 @@ export class PlacementComponent implements OnInit, OnDestroy {
         this.filterArchivedPlacements();
     }
 
-    private filterPlacements(keyword: string) {
+    private filterPlacementsByKeywords() {
         this.filteredPlacements = this.filteredPlacements.filter((p: Placement) => {
-            return (p.nomClientFinal || '').toLowerCase().indexOf(keyword) > -1 ||
-                (p.nomSSII || '').toLowerCase().indexOf(keyword) > -1 ||
-                (p.consultant.nom || '').toLowerCase().indexOf(keyword) > -1 ||
-                (p.bizDev.surnom || '').toLowerCase().indexOf(keyword) > -1;
+            return (p.nomClientFinal || '').toLowerCase().indexOf((this.filter.nomClientFinal || '').toLowerCase()) > -1 &&
+                (p.nomSSII || '').toLowerCase().indexOf((this.filter.nomSSII || '').toLowerCase()) > -1 &&
+                (p.consultant.nom || '').toLowerCase().indexOf((this.filter.consultant || '').toLowerCase()) > -1 &&
+                (p.bizDev.surnom || '').toLowerCase().indexOf((this.filter.bizDev || '').toLowerCase()) > -1;
         });
+    }
+
+    private filterPlacementsByEtat() {
+        if (!this.filter.etats['all']) {
+            this.filteredPlacements = [];
+            Object.keys(this.filter.etats).filter((k) => k !== 'all' && this.filter.etats[k])
+                .forEach((k) => {
+                    const filtered = this.placements.filter((p: Placement) => p.etat.toString().toLowerCase() === k.toLocaleLowerCase()) || [];
+                    if (this.filteredPlacements.length === 0) {
+                        this.filteredPlacements = (filtered.length > 0) ? filtered : [];
+                    } else if (this.filteredPlacements.length > 0) {
+                        this.filteredPlacements = [...this.filteredPlacements, ...filtered];
+                    }
+                });
+        }
     }
 
     private filterArchivedPlacements() {

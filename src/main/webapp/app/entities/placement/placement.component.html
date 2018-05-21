@@ -11,14 +11,6 @@
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-md-12">
-            <label class="sr-only" for="searchInput">Search</label>
-            <div class="input-group">
-                <input type="text" id="searchInput" class="form-control form-control-lg" 
-                placeholder="Search by nom client final, nom SSII, nom consultant or bizDev"
-                    [ngModel]="keyword" (ngModelChange)="onSearch($event)">
-            </div>
-        </div>
-        <div class="col-md-12">
             <div class="form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" [ngModel]="showArchivedPlacements" (ngModelChange)="onShowArchivedPlacements($event)"> Show archived placements
@@ -30,40 +22,94 @@
     <div class="table-responsive" *ngIf="filteredPlacements">
         <table class="table table-sm">
             <thead>
+                <tr>
+                    <td>
+                        <button class="btn btn-link" (click)="toggleFilterHeader()">
+                            <span class="fa fa-filter" *ngIf="!filterHeaderOn"></span>
+                            <span>{{ (filterHeaderOn)? 'Reset' : 'Show' }} Filter</span>
+                            <span class="fa fa-times danger" *ngIf="filterHeaderOn"></span>
+                        </button>
+                    </td>
+                    <td colspan="8" valign="middle">
+                        <form class="form-inline" *ngIf="filterHeaderOn">
+                            <div class="form-check form-check-inline">
+                                <input id="etat-0" class="form-check-input" type="checkbox" name="etats" [checked]="filter.etats.all" (change)="onAllEtatChecked($event.target.checked)">
+                                <label for="etat-0" class="form-check-label">All Etats</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-1" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.GO" (change)="onEtatChecked()">
+                                <label for="etat-1" class="form-check-label">GO</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-2" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.NOGO" (change)="onEtatChecked()">
+                                <label for="etat-2" class="form-check-label">NOGO</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-3" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.STANDBY" (change)="onEtatChecked()">
+                                <label for="etat-3" class="form-check-label">STANDBY</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-4" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.POSITIONEMENT" (change)="onEtatChecked()">
+                                <label for="etat-4" class="form-check-label">POSITIONEMENT</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-5" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.ENTRETIEN_COMMERCIAL"
+                                    (change)="onEtatChecked()">
+                                <label for="etat-5" class="form-check-label">Entretien Commercial</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-6" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.ENTRETIEN_CLIENT" (change)="onEtatChecked()">
+                                <label for="etat-6" class="form-check-label">Entretien Client</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="etat-7" class="form-check-input" type="checkbox" name="etats" [(ngModel)]="filter.etats.CV_ENVOYE" (change)="onEtatChecked()">
+                                <label for="etat-7" class="form-check-label">CV Envoyé</label>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-                    <th jhiSortBy="nomClientFinal">
+                    <th>
                         <span>Nom Client Final</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="nomClientFinal"></span>
+                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Nom Client Final" name="nomClientFinal"
+                            [ngModel]="filter.nomClientFinal" (ngModelChange)="filter.nomClientFinal = $event; onFilter();">
                     </th>
-                    <th jhiSortBy="nomSSII">
+                    <th>
                         <span>Nom SSII</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="nomSSII"></span>
+                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Nom SSII" name="nomSSII" [ngModel]="filter.nomSSII"
+                            (ngModelChange)="filter.nomSSII = $event; onFilter();">
                     </th>
-                    <th jhiSortBy="dateDemarrage">
+                    <th>
                         <span>Date Demarrage</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="dateDemarrage"></span>
                     </th>
-                    <th jhiSortBy="etat">
+                    <th>
                         <span>Etat</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="etat"></span>
                     </th>
                     <th>
                         <span>TJM Nego</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="tjmNego"></span>
                     </th>
                     <th>
                         <span>TJM Final</span>
-                        <span class="fa fa-sort"></span>
+                        <span class="fa fa-sort" jhiSortBy="tjmFinal"></span>
                     </th>
-                    <th jhiSortBy="consultant.id">
+                    <th>
                         <span>Consultant</span>
-                        <span class="fa fa-sort"></span>
+                        <span jhiSortBy="consultant.nom" class="fa fa-sort"></span>
+                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Consultant" name="consultant"
+                            [ngModel]="filter.consultant" (ngModelChange)="filter.consultant = $event; onFilter();">
                     </th>
-                    <th jhiSortBy="bizDev.id">
+                    <th>
                         <span>Biz Dev</span>
-                        <span class="fa fa-sort"></span>
+                        <span jhiSortBy="bizDev.surnom" class="fa fa-sort"></span>
+                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="BizDev" name="bizDev" [ngModel]="filter.bizDev"
+                            (ngModelChange)="filter.bizDev = $event; onFilter();">
                     </th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
