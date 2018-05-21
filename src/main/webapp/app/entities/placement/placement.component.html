@@ -126,7 +126,7 @@
                     <td>{{placement.tjmFinal}}</td>
                     <td>
                         <div *ngIf="placement.consultant">
-                            <a [routerLink]="['../consultant', placement.consultant?.id ]">{{placement.consultant?.nom}}</a>
+                            <a [routerLink]="['../consultant', placement.consultant?.id ]">{{placement.consultant?.nom}} {{placement.consultant?.prenom}}</a>
                         </div>
                     </td>
                     <td>
