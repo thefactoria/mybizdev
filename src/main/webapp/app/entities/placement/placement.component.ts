@@ -126,10 +126,10 @@ export class PlacementComponent implements OnInit, OnDestroy {
 
     private filterPlacements(keyword: string) {
         this.filteredPlacements = this.filteredPlacements.filter((p: Placement) => {
-            return p.nomClientFinal.toLowerCase().indexOf(keyword) > -1 ||
-                p.nomSSII.toLowerCase().indexOf(keyword) > -1 ||
-                p.consultant.nom.toLowerCase().indexOf(keyword) > -1 ||
-                p.bizDev.surnom.toLowerCase().indexOf(keyword) > -1;
+            return (p.nomClientFinal || '').toLowerCase().indexOf(keyword) > -1 ||
+                (p.nomSSII || '').toLowerCase().indexOf(keyword) > -1 ||
+                (p.consultant.nom || '').toLowerCase().indexOf(keyword) > -1 ||
+                (p.bizDev.surnom || '').toLowerCase().indexOf(keyword) > -1;
         });
     }
 
