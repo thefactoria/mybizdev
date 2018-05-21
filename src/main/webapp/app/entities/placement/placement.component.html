@@ -24,20 +24,13 @@
             <thead>
                 <tr>
                     <td>
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-link" (click)="toggleFilterHeader()">
-                                <span class="fa fa-filter" *ngIf="!filterHeaderOn"></span>
-                                <span>{{ (filterHeaderOn)? 'Hide' : 'Show' }} Filter</span>
-                                <span class="fa fa-times danger" *ngIf="filterHeaderOn"></span>
-                            </button>
-                            <button class="btn btn-link" (click)="onResetFilters()" *ngIf="filterHeaderOn">
-                                <span class="fa fa-refresh"></span>
-                                <span>Réinitialiser</span>
-                            </button>
-                        </div>
+                        <button class="btn btn-link" (click)="onResetFilters()">
+                            <span class="fa fa-refresh"></span>
+                            <span>Réinitialiser</span>
+                        </button>
                     </td>
-                    <td colspan="8" valign="middle">
-                        <form class="form-inline" *ngIf="filterHeaderOn">
+                    <td colspan="8" valign="middle" *ngIf="filter && filter.etats">
+                        <form class="form-inline">
                             <div class="form-check form-check-inline">
                                 <input id="etat-0" class="form-check-input" type="checkbox" name="etats" [checked]="filter.etats.all" (change)="onAllEtatChecked($event.target.checked)">
                                 <label for="etat-0" class="form-check-label">All Etats</label>
@@ -78,13 +71,13 @@
                     <th>
                         <span>Nom Client Final</span>
                         <span class="fa fa-sort" jhiSortBy="nomClientFinal"></span>
-                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Nom Client Final" name="nomClientFinal"
-                            [ngModel]="filter.nomClientFinal" (ngModelChange)="filter.nomClientFinal = $event; onFilter();">
+                        <input class="form-control form-control-sm" type="text" placeholder="Nom Client Final" name="nomClientFinal" [ngModel]="filter.nomClientFinal"
+                            (ngModelChange)="filter.nomClientFinal = $event; onFilter();">
                     </th>
                     <th>
                         <span>Nom SSII</span>
                         <span class="fa fa-sort" jhiSortBy="nomSSII"></span>
-                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Nom SSII" name="nomSSII" [ngModel]="filter.nomSSII"
+                        <input class="form-control form-control-sm" type="text" placeholder="Nom SSII" name="nomSSII" [ngModel]="filter.nomSSII"
                             (ngModelChange)="filter.nomSSII = $event; onFilter();">
                     </th>
                     <th>
@@ -106,22 +99,27 @@
                     <th>
                         <span>Consultant</span>
                         <span jhiSortBy="consultant.nom" class="fa fa-sort"></span>
-                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="Consultant" name="consultant"
-                            [ngModel]="filter.consultant" (ngModelChange)="filter.consultant = $event; onFilter();">
+                        <input class="form-control form-control-sm" type="text" placeholder="Consultant" name="consultant" [ngModel]="filter.consultant"
+                            (ngModelChange)="filter.consultant = $event; onFilter();">
                     </th>
                     <th>
                         <span>Biz Dev</span>
                         <span jhiSortBy="bizDev.surnom" class="fa fa-sort"></span>
-                        <input *ngIf="filterHeaderOn" class="form-control form-control-sm" type="text" placeholder="BizDev" name="bizDev" [ngModel]="filter.bizDev"
-                            (ngModelChange)="filter.bizDev = $event; onFilter();">
+                        <input class="form-control form-control-sm" type="text" placeholder="BizDev" name="bizDev" [ngModel]="filter.bizDev" (ngModelChange)="filter.bizDev = $event; onFilter();">
                     </th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let placement of filteredPlacements ;trackBy: trackId">
-                    <td>{{placement.nomClientFinal}}</td>
-                    <td>{{placement.nomSSII}}</td>
+                    <td>
+                        <span>{{placement.nomClientFinal}}&nbsp;&nbsp;</span>
+                        <span class="fa fa-phone" data-toggle="tooltip" data-placement="top" [title]="placement.contactClient" *ngIf="placement.contactClient"></span>
+                    </td>
+                    <td>
+                        <span>{{placement.nomSSII}}&nbsp;&nbsp;</span>
+                        <span class="fa fa-phone" data-toggle="tooltip" data-placement="top" [title]="placement.contactSSII" *ngIf="placement.contactSSII"></span>
+                    </td>
                     <td>{{placement.dateDemarrage | date:'dd/MM/yyyy'}}</td>
                     <td>{{placement.etat}}</td>
                     <td>{{placement.tjmNego}}</td>

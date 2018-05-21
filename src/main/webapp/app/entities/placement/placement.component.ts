@@ -31,7 +31,6 @@ export class PlacementComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
-    filterHeaderOn = false;
     filter: any = {};
     filteredPlacements: Placement[];
     showArchivedPlacements = false;
@@ -80,6 +79,11 @@ export class PlacementComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInPlacements();
+        this.filter = {
+            etats: {
+                all: true
+            }
+        };
     }
 
     ngOnDestroy() {
@@ -104,21 +108,14 @@ export class PlacementComponent implements OnInit, OnDestroy {
     onResetFilters() {
         this.filter = {
             etats: {
-                all: true
+                all: true,
             }
         };
-        this.filteredPlacements = Object.assign([], this.placements);
-        this.filterPlacementsByKeywords();
-        this.filterArchivedPlacements();
+        this.onFilter();
     }
 
-    toggleFilterHeader() {
-        this.filterHeaderOn = !this.filterHeaderOn;
-        this.onResetFilters();
-    }
-
-    onShowArchivedPlacements(showArchived: boolean) {
-        this.showArchivedPlacements = showArchived;
+    onShowArchivedPlacements(checked: boolean) {
+        this.showArchivedPlacements = checked;
         this.onFilter();
     }
 
@@ -145,14 +142,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
         for (let i = 0; i < data.length; i++) {
             this.placements.push(data[i]);
         }
-        this.filteredPlacements = Object.assign([], this.placements);
-        if (this.filterHeaderOn) {
-            this.filterPlacementsByEtat();
-        }
-        this.filterArchivedPlacements();
-        if (this.filterHeaderOn) {
-            this.filterPlacementsByKeywords();
-        }
+        this.onFilter();
     }
 
     private filterPlacementsByKeywords() {
