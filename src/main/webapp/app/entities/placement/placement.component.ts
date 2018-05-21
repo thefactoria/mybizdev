@@ -101,8 +101,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    toggleFilterHeader() {
-        this.filterHeaderOn = !this.filterHeaderOn;
+    onResetFilters() {
         this.filter = {
             etats: {
                 all: true
@@ -111,6 +110,11 @@ export class PlacementComponent implements OnInit, OnDestroy {
         this.filteredPlacements = Object.assign([], this.placements);
         this.filterPlacementsByKeywords();
         this.filterArchivedPlacements();
+    }
+
+    toggleFilterHeader() {
+        this.filterHeaderOn = !this.filterHeaderOn;
+        this.onResetFilters();
     }
 
     onShowArchivedPlacements(showArchived: boolean) {
@@ -142,7 +146,13 @@ export class PlacementComponent implements OnInit, OnDestroy {
             this.placements.push(data[i]);
         }
         this.filteredPlacements = Object.assign([], this.placements);
+        if (this.filterHeaderOn) {
+            this.filterPlacementsByEtat();
+        }
         this.filterArchivedPlacements();
+        if (this.filterHeaderOn) {
+            this.filterPlacementsByKeywords();
+        }
     }
 
     private filterPlacementsByKeywords() {

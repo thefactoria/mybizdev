@@ -24,11 +24,17 @@
             <thead>
                 <tr>
                     <td>
-                        <button class="btn btn-link" (click)="toggleFilterHeader()">
-                            <span class="fa fa-filter" *ngIf="!filterHeaderOn"></span>
-                            <span>{{ (filterHeaderOn)? 'Reset' : 'Show' }} Filter</span>
-                            <span class="fa fa-times danger" *ngIf="filterHeaderOn"></span>
-                        </button>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-link" (click)="toggleFilterHeader()">
+                                <span class="fa fa-filter" *ngIf="!filterHeaderOn"></span>
+                                <span>{{ (filterHeaderOn)? 'Hide' : 'Show' }} Filter</span>
+                                <span class="fa fa-times danger" *ngIf="filterHeaderOn"></span>
+                            </button>
+                            <button class="btn btn-link" (click)="onResetFilters()" *ngIf="filterHeaderOn">
+                                <span class="fa fa-refresh"></span>
+                                <span>Réinitialiser</span>
+                            </button>
+                        </div>
                     </td>
                     <td colspan="8" valign="middle">
                         <form class="form-inline" *ngIf="filterHeaderOn">
